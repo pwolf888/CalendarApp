@@ -52,13 +52,12 @@ $(document).ready(function(){
    
     
     for (var i = 0; i < 30; i++) {
-        var $button = $(ons._util.createElement("<ons-button modifier='large'>Megan</ons-button>"));
+        var $button = $(ons._util.createElement("<ons-button id="+ i + " modifier='quiet large'>button</ons-button>"));
         
         $("#button").append($button);
         
         $button.click(function(){
-            alert("is a super babe<3<3");
-            
+                alert("You pressed the button!");
         });
     }
     

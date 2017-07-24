@@ -18,12 +18,49 @@
         <title>calendar</title>
     </head>
     <body>
-        <ons-page id="page1">
-            <ons-toolbar>
-                <div class="center">Calendar</div>
-            </ons-toolbar>
-            <section id="button"></section>
-        </ons-page>
+        
+        /***************************************************************************************
+        * Today Page
+        * Time, Weather, Month, Up button, Add button, 3 days ie 15, 16 , 17(middle being today)
+        ****************************************************************************************/
+        <ons-template id="Today">
+            <ons-page>
+                <div id="clock">12:00</div>
+                <div id="weather"></div>
+                <ons-button class="left">^</ons-button>
+                
+                <ons-button class="right">+</ons-button>
+                
+            </ons-page>
+        </ons-template>
+        
+        /***************************************************************************************
+        * Events Page
+        ****************************************************************************************/
+        <ons-template id="Events">
+        
+        </ons-template>
+        
+        /***************************************************************************************
+        * Add Event Page
+        ****************************************************************************************/
+        <ons-template id="AddEvent">
+        
+        </ons-template>
+        /***************************************************************************************
+        * Month Page
+        ****************************************************************************************/
+        <ons-template id="Month">
+        
+        </ons-template>
+        
+        /***************************************************************************************
+        * Year Page
+        ****************************************************************************************/
+        <ons-template id="Year">
+            
+        </ons-template>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
