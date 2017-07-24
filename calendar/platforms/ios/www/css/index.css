@@ -113,3 +113,19 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+
+/*
+*
+* My CSS
+*
+*/
+
+
+.centre {
+    
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+}
