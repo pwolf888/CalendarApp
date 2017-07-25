@@ -9,6 +9,7 @@
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
             
         
+        
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -23,50 +24,61 @@
         * Today Page
         * Time, Weather, Month, Up button, Add button, 3 days ie 15, 16 , 17(middle being today)
         ****************************************************************************************/-->
-        
-            <ons-page>
-                <div class="centre" id="clock">12:00</div>
-                <div class="centre"  id="weather">0</div>
-                <div class="centre" id="month">July</div>
-                <ons-button >^</ons-button>
-                <ons-button style="float:right" >+</ons-button>
-                <div class="centre" id="day">Monday</div>
-                <ons-row class="centre" id="threeDays">
-                    <ons-col id="yesterday"><ons-button>15</ons-button></ons-col>
-                    <ons-col id="today"><ons-button>16</ons-button></ons-col>
-                    <ons-col id="tomorrow"><ons-button>17</ons-button></ons-col>
-                </ons-row>
-            </ons-page>
+        <ons-navigator swipeable id="myNav" page="frontPage.html"></ons-navigator> 
+        <tempalte id="frontPage.html">
+                <ons-page id="frontPage">
+                    <div class="centre" id="clock">12:00</div>
+                    <div class="centre"  id="weather">0</div>
+                    <div class="centre" id="month">July</div>
+                    <ons-button >^</ons-button>
+                    <ons-button style="float:right" >+</ons-button>
+                    <div class="centre" id="day">Monday</div>
+                    <ons-row class="centre" id="threeDays">
+                        <ons-col id="yesterday"><ons-button>15</ons-button></ons-col>
+                        
+                        <ons-col ><ons-button id="today">16</ons-button></ons-col>
+                        
+                        <ons-col id="tomorrow"><ons-button>17</ons-button></ons-col>
+                    </ons-row>
+                </ons-page>
+        </tempalte>
         
        
-        /***************************************************************************************
-        * Events Page
-        ****************************************************************************************/
-        <ons-template id="Events">
+        <!--***************************************************************************************
+        * Events Page Today
+        ****************************************************************************************/-->
+        <template id="Events.html">
+            <ons-page id="events">
+                <ons-button>derp</ons-button>
+            </ons-page>
+        </template>
         
-        </ons-template>
-        
-        /***************************************************************************************
+        <!--/***************************************************************************************
         * Add Event Page
-        ****************************************************************************************/
-        <ons-template id="AddEvent">
+        ****************************************************************************************/-->
+        <template id="AddEvent.html">
         
-        </ons-template>
-        /***************************************************************************************
+        </template>
+        
+        <!--/***************************************************************************************
         * Month Page
-        ****************************************************************************************/
-        <ons-template id="Month">
+        ****************************************************************************************/-->
+        <template id="Month.html">
         
-        </ons-template>
+        </template>
         
-        /***************************************************************************************
+        <!--/***************************************************************************************
         * Year Page
-        ****************************************************************************************/
-        <ons-template id="Year">
+        ****************************************************************************************/-->
+        <template id="Year.html">
             
-        </ons-template>-->
+        </template>
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        
+        
+        
+        
     </body>
 </html>

@@ -29,12 +29,23 @@ var app = {
 app.initialize();
 
 
-
 $(document).ready(function(){
     
-   
+    var $todayBtn = $('#today');
     
-    for (var i = 0; i < 30; i++) {
+    $todayBtn.click(function(){
+        
+        $("#frontPage").removeClass("show");
+        $("#events").addClass("show");
+        
+    });
+
+});
+    
+    
+    
+    
+    /*for (var i = 0; i < 30; i++) {
         var $button = $(ons._util.createElement("<ons-button id="+ i + ">button</ons-button>"));
         
         $("#button").append($button);
@@ -42,11 +53,11 @@ $(document).ready(function(){
         $button.click(function(){
                 alert("You pressed the button!");
         });
-    }
+    }*/
     
    
     
-});
+
 
     
     

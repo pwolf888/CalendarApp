@@ -30,11 +30,36 @@ app.initialize();
 
 
 
-$(document).ready(function(){
+/*$(document).ready(function(){
+    
+    var $todayBtn = $('#today');
+    
+    $todayBtn.click(function(){
+        
+        $("#frontPage").hide("slow");
+        $("#events").show();
+        
+    });*/
+
+document.addEventListener('init', function(event) {
+  var page = event.target;
+
+  if (page.id === 'frontPage') {
+    page.querySelector('today').onclick = function() {
+      document.querySelector('#myNav').pushPage('Events.html', {data: {title: 'Events'}});
+    };
+  } else if (page.id === 'events') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+  }
+});
+        
     
    
     
-    for (var i = 0; i < 30; i++) {
+    
+    
+    
+    /*for (var i = 0; i < 30; i++) {
         var $button = $(ons._util.createElement("<ons-button id="+ i + ">button</ons-button>"));
         
         $("#button").append($button);
@@ -42,7 +67,7 @@ $(document).ready(function(){
         $button.click(function(){
                 alert("You pressed the button!");
         });
-    }
+    }*/
     
    
     
