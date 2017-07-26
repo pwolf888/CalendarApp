@@ -30,17 +30,18 @@ app.initialize();
 
 
 $(document).ready(function(){
-    var $todayBtn = $('#today');
-    $todayBtn.click(function(){
-        console.log("clicked")
-        
-    });
-    frontPage();
+    
+    showFrontPage();
+    $("#today").on("click", showEvents);
+    $("#upBtn").on("click", showFrontPage);
+    
 });
 
 
-
-function frontPage() {
+/***********************************
+* Function to load the front page
+************************************/
+function showFrontPage() {
     var page = $("<ons-page id='frontPage'></ons-page>");
     var clock = $("<div class='centre' id='clock'>12:00</div>");
     var weather = $("<div class='centre' id='weather'>0</div>");
@@ -53,6 +54,7 @@ function frontPage() {
     var today = $("<ons-col id='today'><ons-button>16</ons-button></ons-col>");
     var tomorrow = $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>");
     
+    
     page.append(clock);
     page.append(weather);
     page.append(month);
@@ -64,12 +66,49 @@ function frontPage() {
     threeDays.append(today);
     threeDays.append(tomorrow);
     
-    
-    $("body").html(page);
+    $("#FrontPage").html(page);
     
 }
 
+/***********************************
+* Function to load Todays Events
+************************************/
+
+function showEvents() {
     
+    var page = $("<ons-page id='events'></ons-page>");
+    var upBtn = $("<ons-button id='upBtn'>^</ons-button>");
+    var addBtn = $("<ons-button id='addBtn' style='float:right'>+</ons-button>");
+    var weather = $("<div class='centre'>weather</div>");
+    
+    var list = $("<ons-list></ons-list");
+    
+    var lHead = $("<ons-list-header></ons-list-header");
+    var lRow = $("<ons-row class='centre'></ons-row");
+    var day = $("<ons-col id='day'>16</ons-col>");
+    var month = $("<ons-col id='month'>JUL</ons-col>");
+    var year = $("<ons-col id='year'>2017</ons-col>");
+    
+    var lItem = $("<ons-list-item></ons-list-item");
+    var lImage = $("<div class='left'><div class='circle'></div></div>");
+    var lInfo = $("<div><span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>14:00</span></div>");
+    
+    page.append(upBtn);
+    page.append(addBtn);
+    page.append(weather);
+    page.append(list);
+    list.append(lHead);
+    lHead.append(lRow);
+    lRow.append(day);
+    lRow.append(month);
+    lRow.append(year);
+    list.append(lItem);
+    lItem.append(lImage);
+    lItem.append(lInfo);
+    
+    $("#EventsPage").html(page);
+    
+}
    
     
 

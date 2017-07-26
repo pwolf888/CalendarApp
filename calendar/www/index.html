@@ -24,8 +24,7 @@
         * Today Page
         * Time, Weather, Month, Up button, Add button, 3 days ie 15, 16 , 17(middle being today)
         ****************************************************************************************/-->
-        <ons-navigator swipeable id="myNav" page="frontPage.html"></ons-navigator> 
-        <template id="frontPage.html">
+        <div id="FrontPage"></div>
             
                 <!--<ons-page id="frontPage">
                     <div class="centre" id="clock">12:00</div>
@@ -42,7 +41,7 @@
                         <ons-col id="tomorrow"><ons-button>17</ons-button></ons-col>
                     </ons-row>
                 </ons-page>-->
-        </template>
+        
         
         
         
@@ -52,19 +51,29 @@
         <!--***************************************************************************************
         * Events Page Today
         ****************************************************************************************/-->
-        <template id="Events.html">
-            <ons-page id="events">
-                <ons-toolbar>
-                    
-                        <div class="left">
-                            <ons-back-button>Page 1</ons-back-button>
+        <div id="EventsPage"></div>
+            <!--<ons-page id='events'>
+                <ons-button >^</ons-button>
+                <div class='centre'>weather</div>
+                <ons-button style='float:right'>+</ons-button>
+                <ons-list>
+                    <ons-list-header>
+                        <div id='day'>16</div>
+                        <div id='month'>JUL</div>
+                        <div id='year'>2017</div>
+                    </ons-list-header>
+                    <ons-list-item>
+                        <div class='left'>
+                            <div class='circle'></div>
                         </div>
-                    
-                    <div class="center"></div>
-                </ons-toolbar>
+                        <div class='centre'>
+                            <span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>On the Internet</span>
+                        </div>
+                    </ons-list-item>
+                </ons-list>
                 
             </ons-page>
-        </template>
+        -->
         
         <!--/***************************************************************************************
         * Add Event Page
