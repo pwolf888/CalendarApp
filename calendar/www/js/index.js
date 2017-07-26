@@ -57,7 +57,6 @@ function showFrontPage() {
     
     
     
-    
     page.append(clock);
     page.append(weather);
     page.append(month);
@@ -118,18 +117,6 @@ function showEvents() {
     
 }
 
-
- 
-    
-
-
-    
-    
-var Event = function () {
-    
-}
-
-Event.prototype.close = function () {
-    
-}
-
+/***********************************
+* Function to add Add Event Page
+************************************/
