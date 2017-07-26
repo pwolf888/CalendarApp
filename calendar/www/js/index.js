@@ -30,30 +30,45 @@ app.initialize();
 
 
 $(document).ready(function(){
-    
     var $todayBtn = $('#today');
-    
     $todayBtn.click(function(){
-        
-        $("#frontPage").removeClass("show");
-        $("#events").addClass("show");
+        console.log("clicked")
         
     });
-
+    frontPage();
 });
+
+
+
+function frontPage() {
+    var page = $("<ons-page id='frontPage'></ons-page>");
+    var clock = $("<div class='centre' id='clock'>12:00</div>");
+    var weather = $("<div class='centre' id='weather'>0</div>");
+    var month = $(" <div class='centre' id='month'>July</div>");
+    var upBtn = $("<ons-button >^</ons-button>");
+    var addBtn = $("<ons-button style='float:right'>+</ons-button>");
+    var day = $("<div class='centre' id='day'>Monday</div>");
+    var threeDays = $("<ons-row class='centre' id='threeDays'></ons-row>");
+    var yesterday = $("<ons-col id='yesterday'><ons-button>15</ons-button></ons-col>");
+    var today = $("<ons-col id='today'><ons-button>16</ons-button></ons-col>");
+    var tomorrow = $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>");
+    
+    page.append(clock);
+    page.append(weather);
+    page.append(month);
+    page.append(upBtn);
+    page.append(addBtn);
+    page.append(day);
+    page.append(threeDays);
+    threeDays.append(yesterday);
+    threeDays.append(today);
+    threeDays.append(tomorrow);
     
     
+    $("body").html(page);
     
-    
-    /*for (var i = 0; i < 30; i++) {
-        var $button = $(ons._util.createElement("<ons-button id="+ i + ">button</ons-button>"));
-        
-        $("#button").append($button);
-        
-        $button.click(function(){
-                alert("You pressed the button!");
-        });
-    }*/
+}
+
     
    
     

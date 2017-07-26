@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/onsen-css-components.min.css">
         <script type="text/javascript" src="js/onsenui.min.js"></script>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-            
+        
         
         
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
@@ -25,9 +25,9 @@
         * Time, Weather, Month, Up button, Add button, 3 days ie 15, 16 , 17(middle being today)
         ****************************************************************************************/-->
         <ons-navigator swipeable id="myNav" page="frontPage.html"></ons-navigator> 
-        <tempalte id="frontPage.html">
+        <template id="frontPage.html">
             
-                <ons-page id="frontPage">
+                <!--<ons-page id="frontPage">
                     <div class="centre" id="clock">12:00</div>
                     <div class="centre"  id="weather">0</div>
                     <div class="centre" id="month">July</div>
@@ -41,8 +41,8 @@
                         
                         <ons-col id="tomorrow"><ons-button>17</ons-button></ons-col>
                     </ons-row>
-                </ons-page>
-        </tempalte>
+                </ons-page>-->
+        </template>
         
         
         
@@ -55,9 +55,11 @@
         <template id="Events.html">
             <ons-page id="events">
                 <ons-toolbar>
-                    <div class="left">
-                        <ons-back-button>Page 1</ons-back-button>
-                    </div>
+                    
+                        <div class="left">
+                            <ons-back-button>Page 1</ons-back-button>
+                        </div>
+                    
                     <div class="center"></div>
                 </ons-toolbar>
                 
