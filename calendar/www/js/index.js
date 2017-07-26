@@ -33,7 +33,8 @@ $(document).ready(function(){
     
     showFrontPage();
     $("#today").on("click", showEvents);
-    $("#upBtn").on("click", showFrontPage);
+    
+    
     
 });
 
@@ -53,6 +54,8 @@ function showFrontPage() {
     var yesterday = $("<ons-col id='yesterday'><ons-button>15</ons-button></ons-col>");
     var today = $("<ons-col id='today'><ons-button>16</ons-button></ons-col>");
     var tomorrow = $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>");
+    
+    
     
     
     page.append(clock);
@@ -93,6 +96,10 @@ function showEvents() {
     var lImage = $("<div class='left'><div class='circle'></div></div>");
     var lInfo = $("<div><span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>14:00</span></div>");
     
+    upBtn.on('click', function(){
+        $("#EventsPage").html("");
+    });
+    
     page.append(upBtn);
     page.append(addBtn);
     page.append(weather);
@@ -108,12 +115,21 @@ function showEvents() {
     
     $("#EventsPage").html(page);
     
+    
 }
-   
+
+
+ 
     
 
 
     
     
+var Event = function () {
+    
+}
 
+Event.prototype.close = function () {
+    
+}
 
