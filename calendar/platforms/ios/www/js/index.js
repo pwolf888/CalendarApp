@@ -48,7 +48,7 @@ function showFrontPage() {
     
     self.$container = $("#FrontPage");
     
-    self.$page = $("<ons-page id='frontPage'></ons-page>");
+    self.$page = $("<ons-page class='frontPageBg' id='frontPage'></ons-page>");
     $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='centre' id='weather'>Sunny</div>").appendTo(self.$page);
     $("<div class='centre' id='month'>July</div>").appendTo(self.$page);
