@@ -137,9 +137,11 @@ function AddEventsPage(){
     
     $("<div class='centre'><ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input></div>").appendTo(self.$page);
     
-    $("<div class='centre'><ons-input placeholder='HH' ></ons-input><ons-input placeholder='MM' ></ons-input></div>").appendTo(self.$page);
+    $("<div class='centre'><ons-row><ons-col><ons-input placeholder='HH' ></ons-col><ons-col></ons-input><ons-input placeholder='MM' ></ons-input></ons-col></ons-row></div>").appendTo(self.$page);
     
-    $("<div class='centre'><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
+    //$("<div class='centre'><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
+    
+    $("<div class='centre'><textarea type='text' placeholder='notes' min='0' max='30' rows='3' col='10'></textarea></div>").appendTo(self.$page);
     
     $("<div class='centre'><ons-button id='addEvent'>Add Event</ons-button></div>").appendTo(self.$page);
     
