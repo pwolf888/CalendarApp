@@ -121,7 +121,27 @@ function showEvents() {
 /***********************************
 * Function to add Add Event Page
 ************************************/
-
+function AddEventsPage(){
+    
+    var self = this;
+    
+    self.$container = $("#addEventsPage");
+    
+    self.$page = $("<ons-page id='addEventsPage'></ons-page>");
+    $("<ons-toolbar><ons-button id='upBtn'>^</ons-button><ons-button style='float:right'>X</ons-button><div class='centre'>New Event</div></ons-toolbar>").appendTo(self.page);
+    
+    $("<div id='triangles'><ons-button class='circle--blue'></ons-button><ons-button class='circle--red'></ons-button><ons-button class='circle--green'></ons-button><ons-button class='circle--yellow'></ons-button></div>").appendTo(self.page);
+    
+    $("<div><ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input></div>").appendTo(self.page);
+    
+    $("<div><ons-input type='number' placeholder='HH' min='2' max='2'></ons-input><ons-input type='number' placeholder='MM' min='2' max='2'></ons-input></div>").appendTo(self.page);
+    
+    $("<div><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.page);
+    
+    $("<div><ons-button id='addEvent'></ons-button></div>").appendTo(self.page);
+    
+    self.$container.append(self.$page);
+}
 
 
 
