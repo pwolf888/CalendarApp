@@ -32,7 +32,7 @@ app.initialize();
 $(document).ready(function(){
     
     showFrontPage();
-    $("#today").on("click", showEvents);
+    
     
     
     
@@ -43,32 +43,27 @@ $(document).ready(function(){
 * Function to load the front page
 ************************************/
 function showFrontPage() {
-    var page = $("<ons-page id='frontPage'></ons-page>");
-    var clock = $("<div class='centre' id='clock'>12:00</div>");
-    var weather = $("<div class='centre' id='weather'>0</div>");
-    var month = $(" <div class='centre' id='month'>July</div>");
-    var upBtn = $("<ons-button >^</ons-button>");
-    var addBtn = $("<ons-button style='float:right'>+</ons-button>");
-    var day = $("<div class='centre' id='day'>Monday</div>");
-    var threeDays = $("<ons-row class='centre' id='threeDays'></ons-row>");
-    var yesterday = $("<ons-col id='yesterday'><ons-button>15</ons-button></ons-col>");
-    var today = $("<ons-col id='today'><ons-button>16</ons-button></ons-col>");
-    var tomorrow = $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>");
     
+    var self = this;
     
+    self.$container = $("#FrontPage");
     
-    page.append(clock);
-    page.append(weather);
-    page.append(month);
-    page.append(upBtn);
-    page.append(addBtn);
-    page.append(day);
-    page.append(threeDays);
-    threeDays.append(yesterday);
-    threeDays.append(today);
-    threeDays.append(tomorrow);
+    self.$page = $("<ons-page id='frontPage'></ons-page>");
+    $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
+    $("<div class='centre' id='weather'>Sunny</div>").appendTo(self.$page);
+    $(" <div class='centre' id='month'>July</div>").appendTo(self.$page);
+    $("<ons-button >^</ons-button>").appendTo(self.$page);
+    $("<ons-button style='float:right'>+</ons-button>").appendTo(self.$page);
+    $("<div class='centre' id='day'>Monday</div>").appendTo(self.$page);
     
-    $("#FrontPage").html(page);
+    var $row = $("<ons-row class='centre' id='threeDays'></ons-row>").appendTo(self.$page);
+    $("<ons-col id='yesterday'><ons-button>15</ons-button></ons-col>").appendTo($row);
+    $("<ons-col id='today'><ons-button>16</ons-button></ons-col>").appendTo($row).on('click', function(){
+        showEvents();
+    });
+    $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>").appendTo($row);
+    
+    self.$container.append(self.$page);
     
 }
 
