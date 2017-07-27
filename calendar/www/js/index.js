@@ -99,6 +99,9 @@ function showEvents() {
         $("#EventsPage").html("");
     });
     
+    addBtn.on('click', function(){
+        AddEventsPage();
+    })
     
     page.append(upBtn);
     page.append(addBtn);
@@ -127,18 +130,18 @@ function AddEventsPage(){
     
     self.$container = $("#addEventsPage");
     
-    self.$page = $("<ons-page id='addEventsPage'></ons-page>");
-    $("<ons-toolbar><ons-button id='upBtn'>^</ons-button><ons-button style='float:right'>X</ons-button><div class='centre'>New Event</div></ons-toolbar>").appendTo(self.page);
+    self.$page = $("<ons-page></ons-page>");
+    $("<ons-toolbar><ons-button id='upBtn'>^</ons-button><div class='centre'>New Event</div><ons-button style='float:right'>X</ons-button></ons-toolbar>").appendTo(self.$page);
     
-    $("<div id='triangles'><ons-button class='circle--blue'></ons-button><ons-button class='circle--red'></ons-button><ons-button class='circle--green'></ons-button><ons-button class='circle--yellow'></ons-button></div>").appendTo(self.page);
+    $("<div class='centre' id='triangles'><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button></div>").appendTo(self.$page);
     
-    $("<div><ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input></div>").appendTo(self.page);
+    $("<div class='centre'><ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input></div>").appendTo(self.$page);
     
-    $("<div><ons-input type='number' placeholder='HH' min='2' max='2'></ons-input><ons-input type='number' placeholder='MM' min='2' max='2'></ons-input></div>").appendTo(self.page);
+    $("<div class='centre'><ons-input placeholder='HH' ></ons-input><ons-input placeholder='MM' ></ons-input></div>").appendTo(self.$page);
     
-    $("<div><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.page);
+    $("<div class='centre'><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
     
-    $("<div><ons-button id='addEvent'></ons-button></div>").appendTo(self.page);
+    $("<div class='centre'><ons-button id='addEvent'>Add Event</ons-button></div>").appendTo(self.$page);
     
     self.$container.append(self.$page);
 }

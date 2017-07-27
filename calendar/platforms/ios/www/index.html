@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/onsen-css-components.min.css">
         <script type="text/javascript" src="js/onsenui.min.js"></script>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-            
+        
         
         
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
@@ -24,9 +24,9 @@
         * Today Page
         * Time, Weather, Month, Up button, Add button, 3 days ie 15, 16 , 17(middle being today)
         ****************************************************************************************/-->
-        <ons-navigator swipeable id="myNav" page="frontPage.html"></ons-navigator> 
-        <tempalte id="frontPage.html">
-                <ons-page id="frontPage">
+        <div id="FrontPage"></div>
+            
+                <!--<ons-page id="frontPage">
                     <div class="centre" id="clock">12:00</div>
                     <div class="centre"  id="weather">0</div>
                     <div class="centre" id="month">July</div>
@@ -40,26 +40,72 @@
                         
                         <ons-col id="tomorrow"><ons-button>17</ons-button></ons-col>
                     </ons-row>
-                </ons-page>
-        </tempalte>
+                </ons-page>-->
         
+        
+        
+        
+        
+
        
         <!--***************************************************************************************
         * Events Page Today
         ****************************************************************************************/-->
-        <template id="Events.html">
-            <ons-page id="events">
-                <ons-button>derp</ons-button>
+        <div id="EventsPage"></div>
+            <!--<ons-page id='events'>
+                <ons-button >^</ons-button>
+                <div class='centre'>weather</div>
+                <ons-button style='float:right'>+</ons-button>
+                <ons-list>
+                    <ons-list-header>
+                        <div id='day'>16</div>
+                        <div id='month'>JUL</div>
+                        <div id='year'>2017</div>
+                    </ons-list-header>
+                    <ons-list-item>
+                        <div class='left'>
+                            <div class='circle'></div>
+                        </div>
+                        <div class='centre'>
+                            <span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>On the Internet</span>
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+                
             </ons-page>
-        </template>
+        -->
         
         <!--/***************************************************************************************
         * Add Event Page
         ****************************************************************************************/-->
-        <template id="AddEvent.html">
-        
-        </template>
-        
+        <div id='addEventsPage'></div>
+       <!-- 
+        <ons-page>
+            <ons-toolbar>
+                <ons-button id='upBtn'>^</ons-button>
+                <div class='centre'>New Event</div>
+                <ons-button style='float:right'>X</ons-button>
+            </ons-toolbar>
+            <div id='triangles'>
+                <ons-button class='circle'>^</ons-button>
+                <ons-button class='circle'>^</ons-button>
+                <ons-button class='circle'>^</ons-button>
+                <ons-button class='circle'>^</ons-button>
+            </div>
+            <div>
+                <ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input>
+            </div>
+            <div>
+                <ons-input placeholder='HH' ></ons-input>
+                <ons-input placeholder='MM' ></ons-input>
+            </div>
+            <div>
+                <ons-input type='text' placeholder='notes' min='0' max='30'></ons-input>
+            </div>
+            <div>
+                <ons-button id='addEvent'>Add Event</ons-button>
+            </div>
+        </ons-page>-->
         <!--/***************************************************************************************
         * Month Page
         ****************************************************************************************/-->
