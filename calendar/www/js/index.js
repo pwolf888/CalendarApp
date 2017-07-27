@@ -78,46 +78,36 @@ function showFrontPage() {
 
 function showEvents() {
     
-    var page = $("<ons-page id='events'></ons-page>");
-    var upBtn = $("<ons-button id='upBtn'>^</ons-button>");
-    var addBtn = $("<ons-button id='addBtn' style='float:right'>+</ons-button>");
-    var weather = $("<div class='centre'>weather</div>");
+    var self = this;
     
-    var list = $("<ons-list></ons-list");
+    self.$container = $("#EventsPage");
     
-    var lHead = $("<ons-list-header></ons-list-header");
-    var lRow = $("<ons-row class='centre'></ons-row");
-    var day = $("<ons-col id='day'>16</ons-col>");
-    var month = $("<ons-col id='month'>JUL</ons-col>");
-    var year = $("<ons-col id='year'>2017</ons-col>");
+    self.$page = $("<ons-page id='events'></ons-page>");
     
-    var lItem = $("<ons-list-item></ons-list-item");
-    var lImage = $("<div class='left'><div class='circle'></div></div>");
-    var lInfo = $("<div><span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>14:00</span></div>");
-    
-    upBtn.on('click', function(){
+    $("<ons-button id='upBtn'>^</ons-button>").appendTo(self.$page).on('click', function(){
         $("#EventsPage").html("");
     });
     
-    addBtn.on('click', function(){
+    $("<ons-button id='addBtn' style='float:right'>+</ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
-    })
+    });
     
-    page.append(upBtn);
-    page.append(addBtn);
-    page.append(weather);
-    page.append(list);
-    list.append(lHead);
-    lHead.append(lRow);
-    lRow.append(day);
-    lRow.append(month);
-    lRow.append(year);
-    list.append(lItem);
-    lItem.append(lImage);
-    lItem.append(lInfo);
+    $("<div class='centre'>weather</div>").appendTo(self.$page);
     
-    $("#EventsPage").html(page);
+    var $list = $("<ons-list></ons-list").appendTo(self.$page);
+    var $lHead = $("<ons-list-header></ons-list-header>").appendTo($list);
+    var $lRow = $("<ons-row class='centre'></ons-row>").appendTo($lHead);
     
+    $("<ons-col id='day'>16</ons-col>").appendTo($lRow);
+    $("<ons-col id='month'>JUL</ons-col>").appendTo($lRow);
+    $("<ons-col id='year'>2017</ons-col>").appendTo($lRow);
+    
+    var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
+    $("<div class='left'><div class='circle'></div></div>").appendTo($lItem);
+    $("<div><span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
+    
+    
+    self.$container.append(self.$page);
     
 }
 
