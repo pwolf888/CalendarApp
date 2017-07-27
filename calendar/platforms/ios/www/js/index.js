@@ -50,10 +50,12 @@ function showFrontPage() {
     
     self.$page = $("<ons-page id='frontPage'></ons-page>");
     $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
-    $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
-    $(" <div class='centre' id='month'>July</div>").appendTo(self.$page);
+    $("<div class='centre' id='weather'>Sunny</div>").appendTo(self.$page);
+    $("<div class='centre' id='month'>July</div>").appendTo(self.$page);
     $("<ons-button >^</ons-button>").appendTo(self.$page);
-    $("<ons-button style='float:right'>+</ons-button>").appendTo(self.$page);
+    $("<ons-button style='float:right'>+</ons-button>").appendTo(self.$page).on('click', function(){
+        AddEventsPage();
+    });
     $("<div class='centre' id='day'>Monday</div>").appendTo(self.$page);
     
     var $row = $("<ons-row class='centre' id='threeDays'></ons-row>").appendTo(self.$page);
@@ -65,34 +67,6 @@ function showFrontPage() {
     
     self.$container.append(self.$page);
     
-    
-    /*var page = $("<ons-page id='frontPage'></ons-page>");
-    var clock = $("<div class='centre' id='clock'>12:00</div>");
-    var weather = $("<div class='centre' id='clock'>12:00</div>");
-    var month = $(" <div class='centre' id='month'>July</div>");
-    var upBtn = $("<ons-button >^</ons-button>");
-    var addBtn = $("<ons-button style='float:right'>+</ons-button>");
-    var day = $("<div class='centre' id='day'>Monday</div>");
-    var threeDays = $("<ons-row class='centre' id='threeDays'></ons-row>");
-    var yesterday = $("<ons-col id='yesterday'><ons-button>15</ons-button></ons-col>");
-    var today = $("<ons-col id='today'><ons-button>16</ons-button></ons-col>");
-    var tomorrow = $("<ons-col id='tomorrow'><ons-button>17</ons-button></ons-col>");
-    
-    
-    
-    page.append(clock);
-    page.append(weather);
-    page.append(month);
-    page.append(upBtn);
-    page.append(addBtn);
-    page.append(day);
-    page.append(threeDays);
-    threeDays.append(yesterday);
-    threeDays.append(today);
-    threeDays.append(tomorrow);
-    
-    $("#FrontPage").html(page);
-    */
 }
 
 /***********************************
@@ -144,7 +118,10 @@ function AddEventsPage(){
     self.$container = $("#addEventsPage");
     
     self.$page = $("<ons-page></ons-page>");
-    $("<ons-toolbar><ons-toolbar-button class='left' id='upBtn'>^</ons-toolbar-button><div class='center'>New Event</div><ons-toolbar-button class='right'>X</ons-toolbar-button></ons-toolbar>").appendTo(self.$page);
+    var $toolBar = $("<ons-toolbar><div class='left'></div><div class='center'>New Event</div></ons-toolbar>").appendTo(self.$page);
+    $("<div class='right'><ons-toolbar-button>X</ons-toolbar-button></div>").appendTo($toolBar).on('click', function(){
+        $("#addEventsPage").html("");
+    });
     
     $("<div class='centre' id='triangles'><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button></div>").appendTo(self.$page);
     
@@ -162,7 +139,17 @@ function AddEventsPage(){
 }
 
 
+/***********************************
+* Function to add Weeks Page
+************************************/
 
+/***********************************
+* Function to add Months Page
+************************************/
+
+/***********************************
+* Function to add Add Years Page
+************************************/
 
 
 
