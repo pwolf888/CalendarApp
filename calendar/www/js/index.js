@@ -131,7 +131,7 @@ function AddEventsPage(){
     self.$container = $("#addEventsPage");
     
     self.$page = $("<ons-page></ons-page>");
-    $("<ons-toolbar><ons-button id='upBtn'>^</ons-button><div class='centre'>New Event</div><ons-button style='float:right'>X</ons-button></ons-toolbar>").appendTo(self.$page);
+    $("<ons-toolbar><ons-toolbar-button class='left' id='upBtn'>^</ons-toolbar-button><div class='center'>New Event</div><ons-toolbar-button class='right'>X</ons-toolbar-button></ons-toolbar>").appendTo(self.$page);
     
     $("<div class='centre' id='triangles'><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button></div>").appendTo(self.$page);
     
