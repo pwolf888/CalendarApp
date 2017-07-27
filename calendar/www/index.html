@@ -86,7 +86,25 @@
                 <ons-button style='float:right'>X</ons-button>
                 <div class='centre'>New Event</div>
             </ons-toolbar>
-            
+            <div id='triangles'>
+                <ons-button class='circle--blue'></ons-button>
+                <ons-button class='circle--red'></ons-button>
+                <ons-button class='circle--green'></ons-button>
+                <ons-button class='circle--yellow'></ons-button>
+            </div>
+            <div>
+                <ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input>
+            </div>
+            <div>
+                <ons-input type='number' placeholder='HH' min='2' max='2'></ons-input>
+                <ons-input type='number' placeholder='MM' min='2' max='2'></ons-input>
+            </div>
+            <div>
+                <ons-input type='text' placeholder='notes' min='0' max='30'></ons-input>
+            </div>
+            <div>
+                <ons-button id='addEvent'></ons-button>
+            </div>
         </ons-page>
         <!--/***************************************************************************************
         * Month Page

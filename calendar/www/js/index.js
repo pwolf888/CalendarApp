@@ -99,6 +99,7 @@ function showEvents() {
         $("#EventsPage").html("");
     });
     
+    
     page.append(upBtn);
     page.append(addBtn);
     page.append(weather);
@@ -120,3 +121,18 @@ function showEvents() {
 /***********************************
 * Function to add Add Event Page
 ************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
