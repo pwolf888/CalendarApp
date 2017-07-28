@@ -97,13 +97,37 @@
 }
 
 .upButton {
+    background-image: url("../img/upBtn_img-05.png");
+    width:37px;
+    height:38px;
     position: absolute;
     bottom: 300px;
     left: 35px;
 }
 
 .addButton {
+    background-image: url("../img/addBtn.png");
     position: absolute;
+    width:32px;
+    height:32px;
     bottom: 300px;
     right: 35px; 
+}
+
+.clock {
+    width: 100%;
+    position: fixed;
+    top: 50px;
+    text-align: center;
+    font-size: 50px;
+    color: lightgrey;
+}
+
+.sun {
+    background-image: url("../img/sun-04.png");
+    width:115px;
+    height:114px;
+    text-align: center;
+    position: fixed;
+    top: 50px;
 }

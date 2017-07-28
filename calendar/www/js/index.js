@@ -49,11 +49,11 @@ function showFrontPage() {
     self.$container = $("#FrontPage");
     
     self.$page = $("<ons-page class='frontPageBg' id='frontPage'></ons-page>");
-    $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
-    $("<div class='centre' id='weather'>Sunny</div>").appendTo(self.$page);
+    $("<div class='clock' id='clock'>12:00</div>").appendTo(self.$page);
+    $("<div class='sun' id='weather'></div>").appendTo(self.$page);
     $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
-    $("<ons-button class='upButton' >^</ons-button>").appendTo(self.$page);
-    $("<ons-button class='addButton'>+</ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='upButton' ></ons-button>").appendTo(self.$page);
+    $("<ons-button modifier='quiet' class='addButton'></ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
     });
     $("<div class='dayOfWeek' id='day'>Monday</div>").appendTo(self.$page);
