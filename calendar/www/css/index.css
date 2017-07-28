@@ -49,7 +49,9 @@
     width: 78px;
     height: 80px;
     background-repeat: no-repeat;
-    
+    color: white;
+    font-size: 30px;
+    padding-top: 30px;
 }
 
 .triButtonLge {
@@ -57,7 +59,9 @@
     width: 120px;
     height: 125px;
     background-repeat: no-repeat;
-    
+    color:white;
+    font-size: 50px;
+    padding-top: 60px;
 }
 
 .ground{
