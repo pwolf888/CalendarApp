@@ -58,12 +58,15 @@ function showFrontPage() {
     });
     $("<div class='centre' id='day'>Monday</div>").appendTo(self.$page);
     
-    var $row = $("<ons-row class='buttonRow' id='threeDays'></ons-row>").appendTo(self.$page);
-    $("<ons-col id='yesterday'><ons-button class='buttonRow triButtonSml' >15</ons-button></ons-col>").appendTo($row);
-    $("<ons-col id='today'><ons-button class='triButtonLge' >16</ons-button></ons-col>").appendTo($row).on('click', function(){
+    var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
+    
+    var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
+    
+    $("<ons-col><ons-button id='yesterday' class='triButtonSml' >15</ons-button></ons-col>").appendTo($row);
+    $("<ons-col><ons-button id='today' class='triButtonLge' >16</ons-button></ons-col>").appendTo($row).on('click', function(){
         showEvents();
     });
-    $("<ons-col id='tomorrow'><ons-button class='buttonRow triButtonSml' >17</ons-button></ons-col>").appendTo($row);
+    $("<ons-col><ons-button id='tomorrow' class='triButtonSml' >17</ons-button></ons-col>").appendTo($row);
     
     self.$container.append(self.$page);
     

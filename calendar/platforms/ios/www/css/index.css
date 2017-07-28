@@ -57,10 +57,14 @@
     width: 120px;
     height: 125px;
     background-repeat: no-repeat;
+    
 }
 
-.buttonRow {
-    position: absolute;
+.ground{
+    width:100%;
+    position: fixed;
+    text-align: center;
+    
     bottom: 0;
     
 }
