@@ -21,7 +21,12 @@
     border-radius: 5px;
     background-color: red;
 }
-            
+
+
+/************************************************
+*Front page css
+*
+*************************************************/
 .frontPageBgColor .page__background {
     background: red;
     z-index: -1
@@ -37,6 +42,26 @@
     left:0;
     background-size: cover;
     
-    
+}
+
+.triButtonSml {
+    background-image: url("../img/tri_sml-03.png");
+    width: 78px;
+    height: 80px;
+    background-repeat: no-repeat;
     
 }
+
+.triButtonLge {
+    background-image: url("../img/tri_lge-02.png");
+    width: 120px;
+    height: 125px;
+    background-repeat: no-repeat;
+}
+
+.buttonRow {
+    position: absolute;
+    bottom: 0;
+    
+}
+
