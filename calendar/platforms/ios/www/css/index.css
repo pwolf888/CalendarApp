@@ -27,10 +27,16 @@
     z-index: -1
 }
 .frontPageBg .page__background {
-    background-image: url("../img/background_front-01.png");
-    background-size: cover;
+    background-image: url("../img/background_front_dark-01.png");
+    width: 100vw;
+    height: 100vh;
     background-repeat: no-repeat;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left:0;
+    background-size: cover;
+    
+    
+    
 }
