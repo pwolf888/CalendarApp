@@ -74,7 +74,36 @@
 }
 
 .buttonGround {
-    
-    
     bottom: 0px;
+}
+
+
+.dayOfWeek {
+    width:100%;
+    position: fixed;
+    text-align: center;
+    font-size: 50px;
+    color: gray;
+    bottom: 150px;
+}
+
+.monthOfYear {
+    width:100%;
+    position: fixed;
+    text-align: center;
+    font-size: 50px;
+    color: gray;
+    bottom: 300px;
+}
+
+.upButton {
+    position: absolute;
+    bottom: 300px;
+    left: 35px;
+}
+
+.addButton {
+    position: absolute;
+    bottom: 300px;
+    right: 35px; 
 }

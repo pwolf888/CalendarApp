@@ -51,12 +51,12 @@ function showFrontPage() {
     self.$page = $("<ons-page class='frontPageBg' id='frontPage'></ons-page>");
     $("<div class='centre' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='centre' id='weather'>Sunny</div>").appendTo(self.$page);
-    $("<div class='centre' id='month'>July</div>").appendTo(self.$page);
-    $("<ons-button >^</ons-button>").appendTo(self.$page);
-    $("<ons-button style='float:right'>+</ons-button>").appendTo(self.$page).on('click', function(){
+    $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
+    $("<ons-button class='upButton' >^</ons-button>").appendTo(self.$page);
+    $("<ons-button class='addButton'>+</ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
     });
-    $("<div class='centre' id='day'>Monday</div>").appendTo(self.$page);
+    $("<div class='dayOfWeek' id='day'>Monday</div>").appendTo(self.$page);
     
     var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
     

@@ -98,14 +98,12 @@
 
 .upButton {
     position: absolute;
-    
     bottom: 300px;
     left: 35px;
 }
 
 .addButton {
     position: absolute;
-    
     bottom: 300px;
     right: 35px; 
 }
