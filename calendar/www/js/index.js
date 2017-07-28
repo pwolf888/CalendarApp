@@ -62,11 +62,11 @@ function showFrontPage() {
     
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
-    $("<ons-col><ons-button id='yesterday' class='triButtonSml' >15</ons-button></ons-col>").appendTo($row);
-    $("<ons-col><ons-button id='today' class='triButtonLge' >16</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='yesterday' class='triButtonSml' >15</ons-button></ons-col>").appendTo($row);
+    $("<ons-col><ons-button id='today' class='buttonGround triButtonLge' >16</ons-button></ons-col>").appendTo($row).on('click', function(){
         showEvents();
     });
-    $("<ons-col><ons-button id='tomorrow' class='triButtonSml' >17</ons-button></ons-col>").appendTo($row);
+    $("<ons-col align='bottom'><ons-button id='tomorrow' class='buttonGround triButtonSml'>17</ons-button></ons-col>").appendTo($row);
     
     self.$container.append(self.$page);
     
