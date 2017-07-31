@@ -232,16 +232,18 @@ ons-toolbar {
     background: #2e8b57!important;
 }
 
-.tBarCol {
+.tBar {
     color:#fff;
-
+    margin: 10px auto;
+    text-align: center;
+    font-size: 30px;
 }
 
 .xBtn {
-    
+    background-image: url("../img/xBtn-07.png");
+    position: absolute;
     width: 27px;
     height: 27px;
-    
     top: 10px;
     right: 10px;
 }

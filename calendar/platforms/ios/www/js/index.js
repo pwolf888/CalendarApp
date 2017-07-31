@@ -129,8 +129,8 @@ function AddEventsPage(){
     self.$container = $("#addEventsPage");
     
     self.$page = $("<ons-page class='EventsPageBgGrad'></ons-page>");
-    var $toolBar = $("<ons-toolbar><div class='left'></div><div class='center tBarCol'>New Event</div></ons-toolbar>").appendTo(self.$page);
-    $("<div class='right'><ons-toolbar-button><img class='xBtn' src='img/xBtn-07.png'></ons-toolbar-button></div>").appendTo($toolBar).on('click', function(){
+    $("<div class='tBar'>New Event</div>").appendTo(self.$page);
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#addEventsPage").html("");
     });
     
