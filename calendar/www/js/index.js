@@ -48,7 +48,7 @@ function showFrontPage() {
     
     self.$container = $("#FrontPage");
     
-    self.$page = $("<ons-page class='frontPageBg' id='frontPage'></ons-page>");
+    self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     $("<div class='clock' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
     $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
@@ -82,30 +82,38 @@ function showEvents() {
     
     self.$container = $("#EventsPage");
     
-    self.$page = $("<ons-page id='events'></ons-page>");
+    self.$page = $("<ons-page id='events' class='EventsPageBgGrad'></ons-page>");
     
-    $("<ons-button id='upBtn'>^</ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#EventsPage").html("");
     });
     
-    $("<ons-button id='addBtn' style='float:right'>+</ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
     });
     
-    $("<div class='centre'>weather</div>").appendTo(self.$page);
+    $("<div class='weather'>SUNNY</div>").appendTo(self.$page);
     
-    var $list = $("<ons-list></ons-list").appendTo(self.$page);
-    var $lHead = $("<ons-list-header></ons-list-header>").appendTo($list);
-    var $lRow = $("<ons-row class='centre'></ons-row>").appendTo($lHead);
+    var $listContainer = $("<div class='listContainer'></div>").appendTo(self.$page);
+    var $list = $("<ons-list></ons-list").appendTo($listContainer);
+    var $lHead = $("<ons-list-header class='lHeader'></ons-list-header>").appendTo($list);
+    var $lRow = $("<ons-row></ons-row>").appendTo($lHead);
     
     $("<ons-col id='day'>16</ons-col>").appendTo($lRow);
     $("<ons-col id='month'>JUL</ons-col>").appendTo($lRow);
     $("<ons-col id='year'>2017</ons-col>").appendTo($lRow);
     
     var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='circle'></div></div>").appendTo($lItem);
-    $("<div><span class='list-item__title'>Meeting</span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
+    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem);
+    $("<div><span class='list-item__title'>Meeting  </span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
     
+    var $lItem2 = $("<ons-list-item></ons-list-item>").appendTo($list);
+    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem2);
+    $("<div><span class='list-item__title'>Walk Dog  </span><span class='list-item__subtitle'>16:00</span></div>").appendTo($lItem2);
+    
+    var $lItem3 = $("<ons-list-item></ons-list-item>").appendTo($list);
+    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem3);
+    $("<div><span class='list-item__title'>Party  </span><span class='list-item__subtitle'>17:00</span></div>").appendTo($lItem3);
     
     self.$container.append(self.$page);
     

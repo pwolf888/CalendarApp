@@ -27,11 +27,24 @@
 *Front page css
 *
 *************************************************/
-.frontPageBgColor .page__background {
-    background: red;
-    z-index: -1
+.FrontPageBgGrad .page__background {
+    z-index: -1;
+    
+    background:#afeeee;
+    
+    /*background: -webkit-linear-gradient(top,#fff,#afeeee); /* Chrome10+, Safari5.1+ 
+    background: -webkit-linear-gradient(#ffffff, #afeeee);*/
+    /*https://www.gradient-animator.com
+    Author: Ian Forrest
+    
+    background-size: 100% 100%;
+    */ 
 }
+
+
+
 .frontPageBg .page__background {
+    
     background-image: url("../img/background_front_dark-01.png");
     width: 100vw;
     height: 100vh;
@@ -131,3 +144,68 @@
     position: fixed;
     top: 50px;
 }
+
+
+/* Events Page */
+
+.EventsPageBgGrad .page__background {
+    z-index: -1;
+    
+    background: -webkit-linear-gradient(top,#8fbc8f,#fff); /* Chrome10+, Safari5.1+ 
+    
+    background: -webkit-linear-gradient(#ffffff, #afeeee);*/
+    /*https://www.gradient-animator.com
+    Author: Ian Forrest
+    background-size: 100% 100%;
+    */ 
+}
+
+.listContainer {
+    width: 75%;
+    margin: 50px auto;
+    text-align: center;
+    font-size: 20px;
+    color: gray;
+    top: 50px;
+    
+}
+
+.addButtonEvents {
+    position: absolute;
+    background-image: url("../img/addBtn.png");
+    width:32px;
+    height:32px;
+    right:10px;
+    top: 10px;
+    
+}
+
+.upButtonEvents {
+    background-image: url("../img/upBtn_img-05.png");
+    width:37px;
+    height:38px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.lHeader {
+    color:#fff;
+    font-size: 20px;
+    text-align: center;
+    background: #2e8b57;
+}
+
+.weather {
+    
+    background: url(../img/sun-04.png) no-repeat;
+    width:114px;
+    height:115px;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 20px;
+    color:#fff;
+    
+}
+
+/* Add Events Page */
