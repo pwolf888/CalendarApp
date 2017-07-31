@@ -92,11 +92,11 @@ function showEvents() {
         AddEventsPage();
     });
     
-    $("<div class='centre'>weather</div>").appendTo(self.$page);
+    $("<div class='weather'>SUNNY</div>").appendTo(self.$page);
     
     var $listContainer = $("<div class='listContainer'></div>").appendTo(self.$page);
     var $list = $("<ons-list></ons-list").appendTo($listContainer);
-    var $lHead = $("<ons-list-header></ons-list-header>").appendTo($list);
+    var $lHead = $("<ons-list-header class='lHeader'></ons-list-header>").appendTo($list);
     var $lRow = $("<ons-row></ons-row>").appendTo($lHead);
     
     $("<ons-col id='day'>16</ons-col>").appendTo($lRow);
@@ -128,23 +128,22 @@ function AddEventsPage(){
     
     self.$container = $("#addEventsPage");
     
-    self.$page = $("<ons-page></ons-page>");
-    var $toolBar = $("<ons-toolbar><div class='left'></div><div class='center'>New Event</div></ons-toolbar>").appendTo(self.$page);
-    $("<div class='right'><ons-toolbar-button>X</ons-toolbar-button></div>").appendTo($toolBar).on('click', function(){
+    self.$page = $("<ons-page class='EventsPageBgGrad'></ons-page>");
+    var $toolBar = $("<ons-toolbar><div class='left'></div><div class='center tBarCol'>New Event</div></ons-toolbar>").appendTo(self.$page);
+    $("<div class='right'><ons-toolbar-button><img class='xBtn' src='img/xBtn-07.png'></ons-toolbar-button></div>").appendTo($toolBar).on('click', function(){
         $("#addEventsPage").html("");
     });
     
-    $("<div class='centre' id='triangles'><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button><ons-button class='circle'></ons-button></div>").appendTo(self.$page);
+    $("<div class='triContainer'><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button></div>").appendTo(self.$page);
     
-    $("<div class='centre'><ons-input type='text' placeholder='Event Title' min='0' max='15'></ons-input></div>").appendTo(self.$page);
+    $("<div class='triContainer' ><ons-input type='text' placeholder='Event Title' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
-    $("<div class='centre'><ons-row><ons-col><ons-input placeholder='HH' ></ons-col><ons-col></ons-input><ons-input placeholder='MM' ></ons-input></ons-col></ons-row></div>").appendTo(self.$page);
+    $("<div class='timeContainer triContainer'><ons-row><ons-col><ons-input placeholder='HH'></ons-input></ons-col><ons-col><ons-input placeholder='MM'></ons-input></ons-col></ons-row></div>").appendTo(self.$page);
     
-    //$("<div class='centre'><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
+    $("<div class='noteContainer triContainer' ><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
     
-    $("<div class='centre'><textarea type='text' placeholder='notes' min='0' max='30' rows='3' col='10'></textarea></div>").appendTo(self.$page);
     
-    $("<div class='centre'><ons-button id='addEvent'>Add Event</ons-button></div>").appendTo(self.$page);
+    $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page);
     
     self.$container.append(self.$page);
 }
