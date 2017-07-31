@@ -52,7 +52,9 @@ function showFrontPage() {
     $("<div class='clock' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
     $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
-    $("<ons-button modifier='quiet' class='upButton' ></ons-button>").appendTo(self.$page);
+    $("<ons-button modifier='quiet' class='upButton' ></ons-button>").appendTo(self.$page).on('click', function(){
+        AddDaysPage();
+    });
     $("<ons-button modifier='quiet' class='addButton'></ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
     });
@@ -150,18 +152,68 @@ function AddEventsPage(){
 
 
 /***********************************
-* Function to add Weeks Page
+* Function to add Days Page
 ************************************/
-
+function AddDaysPage() {
+    var self = this;
+    
+    self.$container = $("#AddDaysPage");
+    
+    self.$page = $("<ons-page id='weeks' class='EventsPageBgGrad'></ons-page>");
+    
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+        AddMonthsPage();
+    });
+    
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#AddDaysPage").html("");
+    });
+    
+    $("<div class='weather'>Days</div>").appendTo(self.$page);
+    self.$container.append(self.$page);
+    
+}
 /***********************************
 * Function to add Months Page
 ************************************/
-
+function AddMonthsPage() {
+   var self = this;
+    
+    self.$container = $("#AddMonthsPage");
+    
+    self.$page = $("<ons-page id='weeks' class='EventsPageBgGrad'></ons-page>");
+    
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+        AddYearsPage();
+    });
+    
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#AddMonthsPage").html("");
+    });
+    
+    $("<div class='weather'>Months</div>").appendTo(self.$page); 
+    
+    self.$container.append(self.$page);
+    
+}
 /***********************************
 * Function to add Add Years Page
 ************************************/
-
-
+function AddYearsPage() {
+    var self = this;
+    
+    self.$container = $("#AddYearsPage");
+    
+    self.$page = $("<ons-page id='Years' class='EventsPageBgGrad'></ons-page>");
+    
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#AddYearsPage").html("");
+    });
+    
+    $("<div class='weather'>Years</div>").appendTo(self.$page);
+    
+    self.$container.append(self.$page);
+}
 
 
 

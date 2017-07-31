@@ -225,7 +225,11 @@ ons-input input {
     color: #fff !important;
     font-size: 20px !important;
     background:#8fbc8f !important;
-     
+    
+}
+
+ons-input input::placeholder {
+    color: #fff !important;
 }
 
 ons-toolbar {
