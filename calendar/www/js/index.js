@@ -28,13 +28,20 @@ var app = {
 
 app.initialize();
 
+/***********************************
+* GLOBAL VARIABLES
+************************************/
+
+var monthData = ['Jan','Feb','Mar',
+                 'Apr','May','Jun',
+                 'Jul','Aug','Sep',
+                 'Oct','Nov','Dec'];
+
+var YearData = ['17','18','19','20'];
 
 $(document).ready(function(){
     
     showFrontPage();
-    
-    
-    
     
 });
 
@@ -170,6 +177,13 @@ function AddDaysPage() {
     });
     
     $("<div class='weather'>Days</div>").appendTo(self.$page);
+    
+    var daysOfMonth = 31;
+    for(var i=1; i < daysOfMonth; i++){
+        $("<ons-button modifier='quiet' class='triButtonSml'>"+i+"</ons-button>").appendTo(self.$page);
+        
+    }
+    
     self.$container.append(self.$page);
     
 }
@@ -193,6 +207,11 @@ function AddMonthsPage() {
     
     $("<div class='weather'>Months</div>").appendTo(self.$page); 
     
+    var monthsOfYear = 12;
+    for(var i=0; i < monthsOfYear; i++){
+        $("<ons-button modifier='quiet' class='triButtonLge'>"+monthData[i]+"</ons-button>").appendTo(self.$page); 
+    }
+    
     self.$container.append(self.$page);
     
 }
@@ -211,6 +230,11 @@ function AddYearsPage() {
     });
     
     $("<div class='weather'>Years</div>").appendTo(self.$page);
+    
+    var years = 4;
+    for(var i=0; i < years; i++){
+        $("<ons-button modifier='quiet' class='triButtonLge'>20"+YearData[i]+"</ons-button>").appendTo(self.$page); 
+    }
     
     self.$container.append(self.$page);
 }
