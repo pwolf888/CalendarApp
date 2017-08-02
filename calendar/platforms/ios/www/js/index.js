@@ -180,7 +180,7 @@ function AddDaysPage() {
     
     var daysOfMonth = 31;
     for(var i=1; i < daysOfMonth; i++){
-        $("<ons-button modifier='quiet' class='triButtonSml'>"+i+"</ons-button>").appendTo(self.$page);
+        $("<ons-button modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page);
         
     }
     
