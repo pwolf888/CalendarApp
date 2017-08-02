@@ -7,31 +7,13 @@
 */
 
 
-.centre {
-    
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-
-}
-
-.circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    background-color: red;
-}
-
-
 /************************************************
 *Front page css
 *
 *************************************************/
 .FrontPageBgGrad .page__background {
     z-index: -1;
-    
     background:#afeeee;
-    
     /*background: -webkit-linear-gradient(top,#fff,#afeeee); /* Chrome10+, Safari5.1+ 
     background: -webkit-linear-gradient(#ffffff, #afeeee);*/
     /*https://www.gradient-animator.com
@@ -252,8 +234,53 @@ ons-toolbar {
     right: 10px;
 }
 
+.triTag {
+    width: 78px;
+    height: 80px;
+    background-repeat: no-repeat;
+    color: white;
+    font-size: 30px;
+    padding-top: 30px;
+}
+
+.greenTag {
+    background-image: url("../img/triTagGreen-11.png");
+}
+
+.redTag {
+    background-image: url("../img/triTagRed-08.png");
+}
+
+.blueTag {
+    background-image: url("../img/triTagBlue-09.png");
+}
+
+.yellowTag {
+    background-image: url("../img/triTagYellow-10.png");
+}
 
 
+/*MonthPage Css*/
+.monthStyle {
+    background-image: url("../img/tri_lge-02.png");
+    width: 120px;
+    height: 125px;
+    background-repeat: no-repeat;
+    color:white;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 60px;
+}
 
+/*YearPage Css*/
 
-
+.yearStyle {
+    background-image: url("../img/tri_lge-02.png");
+    width: 120px;
+    height: 125px;
+    background-repeat: no-repeat;
+    color:white;
+    font-size: 10px;
+    text-align: center;
+    padding-top: 60px;
+}

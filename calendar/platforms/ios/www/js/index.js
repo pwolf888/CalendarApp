@@ -113,15 +113,15 @@ function showEvents() {
     $("<ons-col id='year'>2017</ons-col>").appendTo($lRow);
     
     var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem);
+    $("<div class='left'><div class='triTag blueTag'></div></div>").appendTo($lItem);
     $("<div><span class='list-item__title'>Meeting  </span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
     
     var $lItem2 = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem2);
+    $("<div class='left'><div class='triTag redTag'></div></div>").appendTo($lItem2);
     $("<div><span class='list-item__title'>Walk Dog  </span><span class='list-item__subtitle'>16:00</span></div>").appendTo($lItem2);
     
     var $lItem3 = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triButtonSml'></div></div>").appendTo($lItem3);
+    $("<div class='left'><div class='triTag yellowTag'></div></div>").appendTo($lItem3);
     $("<div><span class='list-item__title'>Party  </span><span class='list-item__subtitle'>17:00</span></div>").appendTo($lItem3);
     
     self.$container.append(self.$page);
@@ -143,7 +143,7 @@ function AddEventsPage(){
         $("#addEventsPage").html("");
     });
     
-    $("<div class='triContainer'><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button><ons-button modifier='quiet' class='triButtonSml'></ons-button></div>").appendTo(self.$page);
+    $("<div class='triContainer'><ons-button modifier='quiet' class='triTag redTag'></ons-button><ons-button modifier='quiet' class='triTag blueTag'></ons-button><ons-button modifier='quiet' class='triTag yellowTag'></ons-button><ons-button modifier='quiet' class='triTag greenTag'></ons-button></div>").appendTo(self.$page);
     
     $("<div class='triContainer' ><ons-input type='text' placeholder='Event Title' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
@@ -209,7 +209,7 @@ function AddMonthsPage() {
     
     var monthsOfYear = 12;
     for(var i=0; i < monthsOfYear; i++){
-        $("<ons-button modifier='quiet' class='triButtonLge'>"+monthData[i]+"</ons-button>").appendTo(self.$page); 
+        $("<ons-button modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page); 
     }
     
     self.$container.append(self.$page);
@@ -233,7 +233,7 @@ function AddYearsPage() {
     
     var years = 4;
     for(var i=0; i < years; i++){
-        $("<ons-button modifier='quiet' class='triButtonLge'>20"+YearData[i]+"</ons-button>").appendTo(self.$page); 
+        $("<ons-button modifier='quiet' class='yearStyle'>20"+YearData[i]+"</ons-button>").appendTo(self.$page); 
     }
     
     self.$container.append(self.$page);
