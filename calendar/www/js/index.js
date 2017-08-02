@@ -199,28 +199,39 @@ function AddEventsPage(){
 ************************************/
 function AddDaysPage() {
     
+    // Stores 'this' inside self
     var self = this;
     
+    // Makes 'this' the contianer for Add Days Page
     self.$container = $("#AddDaysPage");
     
+    // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page id='weeks' class='EventsPageBgGrad'></ons-page>");
     
+    // The ^ button will run the AddMonthsPage function moving up a page if clicked
     $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
         AddMonthsPage();
     });
     
+    // Adds an X button to the toolbar and allows the user to exit the page
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddDaysPage").html("");
     });
     
+    // Adds the Days page title to the toolbar
     $("<div class='weather'>Days</div>").appendTo(self.$page);
     
+    // Declares the amount of days for dummy data
     var daysOfMonth = 31;
+    
+    // A simple loop to generate 31 day buttons down the page
     for(var i=1; i < daysOfMonth; i++){
+        // The Text on the buttons is made from the iterater i
         $("<ons-button modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page);
         
     }
     
+    // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
     
 }
@@ -228,27 +239,40 @@ function AddDaysPage() {
 * Function to add Months Page
 ************************************/
 function AddMonthsPage() {
-   var self = this;
     
+    // Stores 'this' inside self
+    var self = this;
+    
+    // Makes 'this' the contianer for Add Months Page
     self.$container = $("#AddMonthsPage");
     
+    // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page id='weeks' class='EventsPageBgGrad'></ons-page>");
     
+    // The ^ button will run the AddYearsPage function moving up a page if clicked
     $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
         AddYearsPage();
     });
     
+    // Adds an X button to the toolbar and allows the user to exit the page and return to the previous
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddMonthsPage").html("");
     });
     
+    // Adds the Months page title to the toolbar
     $("<div class='weather'>Months</div>").appendTo(self.$page); 
     
+    // Declares the number of months there are in a year
     var monthsOfYear = 12;
+    
+    // A simple loop to generate 12 month buttons down the page
     for(var i=0; i < monthsOfYear; i++){
+        
+        // The Text on the buttons is made from the monthData Array and the iterator
         $("<ons-button modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page); 
     }
     
+    // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
     
 }
@@ -256,23 +280,35 @@ function AddMonthsPage() {
 * Function to add Add Years Page
 ************************************/
 function AddYearsPage() {
+    
+    // Stores 'this' inside self
     var self = this;
     
+    // Makes 'this' the contianer for Add Years Page
     self.$container = $("#AddYearsPage");
     
+    // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page id='Years' class='EventsPageBgGrad'></ons-page>");
     
+    // Adds an X button to the toolbar and allows the user to exit the page and return to the previous
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddYearsPage").html("");
     });
     
+    // Adds the Years page title to the toolbar
     $("<div class='weather'>Years</div>").appendTo(self.$page);
     
+    // Declares the number of Years I wanted for the dummy data on the page
     var years = 4;
+    
+    // A simple loop to generate 4 Year buttons down the page
     for(var i=0; i < years; i++){
+        
+        // The Text on the buttons is made from the YearData Array and the iterator
         $("<ons-button modifier='quiet' class='yearStyle'>20"+YearData[i]+"</ons-button>").appendTo(self.$page); 
     }
     
+    // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
 }
 
