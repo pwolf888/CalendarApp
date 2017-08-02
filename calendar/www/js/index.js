@@ -68,6 +68,10 @@ function showFrontPage() {
     
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
+    
+    // Adding the logo to the top of the page
+    $("<div class='logo'></div>").appendTo(self.$page);
+    
     $("<div class='clock' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
     $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
