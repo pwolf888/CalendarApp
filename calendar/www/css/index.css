@@ -1,10 +1,14 @@
 
 
-/*
+/*************************************************
 *
 * My CSS
-*
-*/
+* Colours:
+* http://www.tayloredmktg.com/rgb/
+* Jonathan Turnbull
+* jmturnbu
+* 214527872
+*************************************************/
 
 
 /************************************************
@@ -99,8 +103,8 @@
     height:38px;
     position: absolute;
     
-    bottom: 50%;
-    left: 20%;
+    bottom: 300px;
+    left: 35px;
 }
 
 .addButton {
@@ -108,9 +112,8 @@
     position: absolute;
     width:32px;
     height:32px;
-    
-    bottom: 50%;
-    right: 20%; 
+    bottom: 300px;
+    right: 35px; 
 }
 
 .clock {
@@ -131,19 +134,20 @@
     top: 50px;
 }
 
-
-/* Events Page */
+/*************************************************
+* Events Page 
+*
+**************************************************/
 
 .EventsPageBgGrad .page__background {
     z-index: -1;
     
-    background: -webkit-linear-gradient(top,#8fbc8f,#fff); /* Chrome10+, Safari5.1+ 
-    
-    background: -webkit-linear-gradient(#ffffff, #afeeee);*/
-    /*https://www.gradient-animator.com
-    Author: Ian Forrest
-    background-size: 100% 100%;
-    */ 
+    /*https://stackoverflow.com/questions/26318988/linear-gradient-not-working-in-chrome
+    I tried to animate my gradient, but was very unsuccessful, so I went with a static one
+    Author: Hashem Qolami
+    */
+    background: -webkit-linear-gradient(top,#8fbc8f,#fff);
+
 }
 
 .listContainer {
@@ -192,7 +196,10 @@
     
 }
 
-/* Add Events Page */
+/*************************************************
+* Add Events Page 
+*
+**************************************************/
 
 .triContainer {
     margin:30px auto;
@@ -263,7 +270,10 @@ ons-toolbar {
     background-image: url("../img/triTagYellow-10.png");
 }
 
-/*DayPage Css*/
+/***************************************************
+* DayPage Css
+*
+***************************************************/
 .dayStyle {
     background-image: url("../img/tri_sml-03.png");
     width: 78px;
@@ -275,7 +285,10 @@ ons-toolbar {
     padding-top: 30px;
 }
 
-/*MonthPage Css*/
+/***************************************************
+* MonthPage Css
+*
+***************************************************/
 .monthStyle {
     background-image: url("../img/tri_lge-02.png");
     width: 120px;
@@ -287,7 +300,10 @@ ons-toolbar {
     padding-top: 60px;
 }
 
-/*YearPage Css*/
+/***************************************************
+* YearPage Css
+*
+***************************************************/
 
 .yearStyle {
     background-image: url("../img/tri_lge-02.png");

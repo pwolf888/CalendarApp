@@ -14,6 +14,8 @@
 .FrontPageBgGrad .page__background {
     z-index: -1;
     background:#afeeee;
+    
+    
     /*background: -webkit-linear-gradient(top,#fff,#afeeee); /* Chrome10+, Safari5.1+ 
     background: -webkit-linear-gradient(#ffffff, #afeeee);*/
     /*https://www.gradient-animator.com
@@ -97,7 +99,7 @@
     height:38px;
     position: absolute;
     
-    bottom: 50%;
+    bottom: 300px;
     left: 35px;
 }
 
@@ -107,7 +109,7 @@
     width:32px;
     height:32px;
     
-    bottom: 50%;
+    bottom: 300px;
     right: 35px; 
 }
 
