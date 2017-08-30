@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+    <script>
+    $.ajax({
+            url: "http://introtoapps.com/datastore.php?action=list&appid=12345678",
+            dataType: 'json',
+            success: function (msg) {
+                console.log(msg);                
+            },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+ });
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

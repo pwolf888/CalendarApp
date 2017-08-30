@@ -45,9 +45,6 @@ var monthData = ['Jan','Feb','Mar',
                  'Jul','Aug','Sep',
                  'Oct','Nov','Dec'];
 
-// This stores all the names of the days
-var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
 // This stores all the Years for my years page
 var YearData = ['17','18','19','20'];
 
@@ -58,70 +55,11 @@ $(document).ready(function(){
     
 });
 
-function daysInMonth(month,year) {
-    return new Date(year, month, 0).getDate();
-}
+
 /***********************************
 * Function to load the front page
 ************************************/
 function showFrontPage() {
-    
-    // Set the date and time
-    var d = new Date();
-    var hrs = d.getHours();
-    var min = d.getMinutes();
-    var month = d.getMonth();
-    var today = d.getDay();
-    var date = d.getDate();
-    var year = d.getYear();
-    
-    var checkMonth = daysInMonth(month, year);
-    var checkStart = daysInMonth(month - 1, year);
-    console.log("check:"+checkMonth);
-    
-    var tomorrow = 0;
-    var yesterday = 0;
-    
-    
-    // A switch statement to check if the month is at its end or not
-    switch(checkMonth) {
-        case 31 && date == 31:
-            tomorrow = 1;
-            break;
-        case 30 && date == 30:
-            tomorrow == 1;
-            break;
-        case 28 && date == 28:
-            tomorrow == 1;
-            break;
-        case 29 && date == 29:
-            tomorrow == 1;
-            break;
-        default:
-            tomorrow = date + 1;
-            break;
-    }
-    
-    // a switch statement to check if the month is at it's start or not
-    switch(checkStart) {
-        case 31 && date == 1:
-            yesterday == 31;
-            break;
-        case 30 && date == 1:
-            yesterday == 30;
-            break;
-        case 29 && date == 1:
-            yesterday = 29;
-            break;
-        case 28 && date == 1:
-            yesterday = 28;
-            break;
-        default:
-            yesterday = date - 1;
-            break;
-    }
-    
-    
     // Stores 'this' inside self
     var self = this;
     
@@ -134,12 +72,12 @@ function showFrontPage() {
     // Adding the logo to the top of the page
     $("<div class='logo'></div>").appendTo(self.$page);
     
-    $("<div class='clock' id='clock'>"+hrs+':'+min+"</div>").appendTo(self.$page);
+    $("<div class='clock' id='clock'>12:00</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
-    $("<div class='monthOfYear' id='month'>"+monthData[month]+"</div>").appendTo(self.$page);
+    $("<div class='monthOfYear' id='month'>July</div>").appendTo(self.$page);
     
     // The ^ button can run the AddDaysPage function if it is clicked
-    $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='upButton' ></ons-button>").appendTo(self.$page).on('click', function(){
         AddDaysPage();
     });
     
@@ -149,7 +87,7 @@ function showFrontPage() {
     });
     
     // Adds the day of the week to the page
-    $("<div class='dayOfWeek' id='day'>"+dayData[today]+"</div>").appendTo(self.$page);
+    $("<div class='dayOfWeek' id='day'>Monday</div>").appendTo(self.$page);
     
     // Row container holds the row of days buttons
     var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
@@ -158,13 +96,12 @@ function showFrontPage() {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row);
-    
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml' >15</ons-button></ons-col>").appendTo($row);
     // The Today button can run the showEvents function if it is clicked
-    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+date+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge' >16</ons-button></ons-col>").appendTo($row).on('click', function(){
         showEvents();
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row);
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>17</ons-button></ons-col>").appendTo($row);
     
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
