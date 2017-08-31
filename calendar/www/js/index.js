@@ -51,38 +51,43 @@ var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 // This stores all the Years for my years page
 var YearData = ['17','18','19','20'];
 
-// This sets up my document with the front page.
-$(document).ready(function(){
-    
-    showFrontPage();
-    
-});
-
-function daysInMonth(month,year) {
-    return new Date(year, month, 0).getDate();
-}
-/***********************************
-* Function to load the front page
-************************************/
-function showFrontPage() {
-    
-    // Set the date and time
+// Set the date and time
     var d = new Date();
     var hrs = d.getHours();
     var min = d.getMinutes();
     var month = d.getMonth();
+    console.log(month);
     var today = d.getDay();
     var date = d.getDate();
-    var year = d.getYear();
+    var year = d.getFullYear();
+    console.log("the year is :"+year);
     
     var checkMonth = daysInMonth(month, year);
+    console.log("checkMonth:"+checkMonth);
     var checkStart = daysInMonth(month - 1, year);
-    console.log("check:"+checkMonth);
+    console.log("checkStart:"+checkStart);
     
     var tomorrow = 0;
     var yesterday = 0;
     
+    var counter = 1;
+    var threeDays = [date];
+    console.log(threeDays[0]);
+
+// This sets up my document with the front page.
+$(document).ready(function(){
+    checkFunction();
+    threeDays.push(tomorrow);
+    threeDays.unshift(yesterday);
+    console.log("threedays:"+threeDays[2]);
+    showFrontPage();
+    console.log("derp"+tomorrow);
     
+});
+
+
+
+function checkFunction() {
     // A switch statement to check if the month is at its end or not
     switch(checkMonth) {
         case 31 && date == 31:
@@ -100,7 +105,11 @@ function showFrontPage() {
         default:
             tomorrow = date + 1;
             break;
+        
+            
     }
+    
+    
     
     // a switch statement to check if the month is at it's start or not
     switch(checkStart) {
@@ -121,6 +130,20 @@ function showFrontPage() {
             break;
     }
     
+    
+}
+
+/*
+https://stackoverflow.com/questions/1184334/get-number-days-in-a-specified-month-using-javascript
+*/
+// A function to find the days in the month
+function daysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
+}
+/***********************************
+* Function to load the front page
+************************************/
+function showFrontPage() {
     
     // Stores 'this' inside self
     var self = this;
@@ -158,13 +181,20 @@ function showFrontPage() {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row);
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+        counter = 0;
+        showEvents();
+    });
     
     // The Today button can run the showEvents function if it is clicked
     $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+date+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+        counter = 1;
         showEvents();
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row);
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+        counter = 2;
+        showEvents();
+    });
     
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
@@ -176,6 +206,8 @@ function showFrontPage() {
 ************************************/
 
 function showEvents() {
+    console.log(counter);
+    checkFunction();
     
     // Stores 'this' inside self
     var self = this;
@@ -205,9 +237,9 @@ function showEvents() {
     var $lRow = $("<ons-row></ons-row>").appendTo($lHead);
     
     // Creates a row of columns - day, month, year
-    $("<ons-col id='day'>16</ons-col>").appendTo($lRow);
-    $("<ons-col id='month'>JUL</ons-col>").appendTo($lRow);
-    $("<ons-col id='year'>2017</ons-col>").appendTo($lRow);
+    $("<ons-col id='day'>"+threeDays[counter]+"</ons-col>").appendTo($lRow);
+    $("<ons-col id='month'>"+monthData[month]+"</ons-col>").appendTo($lRow);
+    $("<ons-col id='year'>"+year+"</ons-col>").appendTo($lRow);
     
     // Displays a coloured triangle, title and time as a single list item
     var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
