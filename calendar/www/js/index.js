@@ -39,41 +39,42 @@ app.initialize();
 * GLOBAL VARIABLES
 ************************************/
 
-// This stores all the months for my months page
-var monthData = ['Jan','Feb','Mar',
-                 'Apr','May','Jun',
-                 'Jul','Aug','Sep',
-                 'Oct','Nov','Dec'];
-
-// This stores all the names of the days
-var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-// This stores all the Years for my years page
-var YearData = ['17','18','19','20'];
+//// This stores all the months for my months page
+//var monthData = ['Jan','Feb','Mar',
+//                 'Apr','May','Jun',
+//                 'Jul','Aug','Sep',
+//                 'Oct','Nov','Dec'];
+//
+//// This stores all the names of the days
+//var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+//
+//// This stores all the Years for my years page
+//var YearData = ['17','18','19','20'];
 
 
 // Sugar Date variables
-var d = new Sugar.Date();
-var time = Sugar.Date().format('%H:%M');
 
-var day = Sugar.Date().format('%A')
-var month = Sugar.Date().format('%B');
+var time = Sugar.Date().format('%H:%M');
 var year = Sugar.Date().format('%Y');
 
-var today = d.format('%d');
+// Today variables
+var today = Sugar.Date().format('%d');
+var tDay = Sugar.Date().format('%A');
+var tMonth = Sugar.Date().format('%b');
+
+// Yesterday variables
 var yesterday = Sugar.Date().rewind('1 days', true).format('%d');
+var yDay = Sugar.Date().format('%A');
+var yMonth = Sugar.Date().format('%b');
+
+// Tomorrow variables
 var tomorrow = Sugar.Date().addDays(1).format('%d');
-
-
-
+var tomDay = Sugar.Date().format('%A');
+var tomMonth = Sugar.Date().format('%b');
 
 // This sets up my document with the front page.
 $(document).ready(function(){
-
-    
-    showFrontPage();
-
-    
+    showFrontPage();    
 });
 
 
@@ -96,7 +97,7 @@ function showFrontPage() {
     
     $("<div class='clock' id='clock'>"+time+"</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
-    $("<div class='monthOfYear' id='month'>"+month+"</div>").appendTo(self.$page);
+    $("<div class='monthOfYear' id='month'>"+tMonth+"</div>").appendTo(self.$page);
     
     // The ^ button can run the AddDaysPage function if it is clicked
     $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
@@ -109,7 +110,7 @@ function showFrontPage() {
     });
     
     // Adds the day of the week to the page
-    $("<div class='dayOfWeek' id='day'>"+day+"</div>").appendTo(self.$page);
+    $("<div class='dayOfWeek' id='day'>"+tDay+"</div>").appendTo(self.$page);
     
     // Row container holds the row of days buttons
     var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
