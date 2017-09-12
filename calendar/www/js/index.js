@@ -53,7 +53,6 @@ app.initialize();
 
 
 // Sugar Date variables
-
 var time = Sugar.Date().format('%H:%M');
 var year = Sugar.Date().format('%Y');
 
@@ -71,6 +70,11 @@ var yMonth = Sugar.Date().format('%b');
 var tomorrow = Sugar.Date().addDays(1).format('%d');
 var tomDay = Sugar.Date().format('%A');
 var tomMonth = Sugar.Date().format('%b');
+
+// days in month
+var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
+console.log(daysInAMonth);
+
 
 // This sets up my document with the front page.
 $(document).ready(function(){
@@ -265,12 +269,17 @@ function AddDaysPage() {
     $("<div class='weather'>Days</div>").appendTo(self.$page);
     
     // Declares the amount of days for dummy data
-    var daysOfMonth = 31;
+    
     
     // A simple loop to generate 31 day buttons down the page
-    for(var i=1; i < daysOfMonth; i++){
+    for(var i=1; i <= daysInAMonth; i++){
         // The Text on the buttons is made from the iterater i
-        $("<ons-button modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page);
+        $("<ons-button id='"+i+"' modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page).on('click', function(){
+            
+            var id = $(this).attr('id');
+            
+            console.log("NUMBER = " + id);
+        });
         
     }
     
