@@ -175,7 +175,7 @@ function showEvents() {
     
     // Creates a row of columns - day, month, year
     $("<ons-col id='day'>"+today+"</ons-col>").appendTo($lRow);
-    $("<ons-col id='month'>"+month+"</ons-col>").appendTo($lRow);
+    $("<ons-col id='month'>"+tMonth+"</ons-col>").appendTo($lRow);
     $("<ons-col id='year'>"+year+"</ons-col>").appendTo($lRow);
     
     // Displays a coloured triangle, title and time as a single list item

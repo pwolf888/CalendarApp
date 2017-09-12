@@ -15,7 +15,7 @@
             };
 
             var data = JSON.stringify(userObj);
-            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(username) +".user&data=" + encodeURIComponent(data);
+            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) +".user&data=" + encodeURIComponent(data);
 
             $.ajax({url: url, cache: false}).
                         done(function(data) {
@@ -27,7 +27,11 @@
 
         }    
         
-    
+    var userObj = {
+                username : _username,
+                password : _password,
+                [colour: _colour, event: _event, time: _time, notes: _notes]
+            };
     
 //    var myData= '{ "UserData":['+'{ "userName":"Jono", "Password":"Jeff" }]}';
         
