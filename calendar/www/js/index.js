@@ -49,7 +49,7 @@ app.initialize();
 //var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 //
 //// This stores all the Years for my years page
-//var YearData = ['17','18','19','20'];
+var YearData = ['17','18','19','20'];
 
 
 // Sugar Date variables
@@ -76,11 +76,83 @@ var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
 console.log(daysInAMonth);
 
 
+
+
+
 // This sets up my document with the front page.
 $(document).ready(function(){
-    showFrontPage();    
+    showLoginPage();    
 });
 
+/***********************************
+* Function to load the Login Page
+************************************/
+function showLoginPage() {
+    // Stores 'this' inside self
+    var self = this;
+    
+    // Makes 'this' the contianer for login page
+    self.$container = $("#LoginPage");
+    
+    // All of my elements are then appended to the ons-page element
+    self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
+    
+    // Add 2 input boxes username and password
+    $("<div class='inputLogin'><ons-input type='text' placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputLogin'><ons-input type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    
+    // add a login button and a register button
+    $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
+        showFrontPage();
+    });
+    $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+        showRegisterPage();
+    });
+    
+    // The page element is appended to the container element, this presenting it to the screen.
+    self.$container.append(self.$page);
+}
+
+
+/***********************************
+* Function to load the Register Page
+************************************/
+function showRegisterPage() {
+    // Stores 'this' inside self
+    var self = this;
+    
+    // Makes 'this' the contianer for login page
+    self.$container = $("#RegisterPage");
+    
+    // All of my elements are then appended to the ons-page element
+    self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
+    
+    
+    // placeholder='Password'
+    // placeholder='Username'
+    
+    // Add 2 input boxes username and password
+    $("<div class='inputLogin'><ons-input id='usernameText' type='text'  placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputLogin'><ons-input id='passwordText'type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    
+    // add a login button and a register button
+    $("<div><ons-button class='registerButton'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+        var userName = $('#usernameText').val();
+        $('#usernameText').val(userName);
+        var passWord = $('#passwordText').val();
+        $('#passwordText').val(passWord);
+        console.log("username =" + userName);
+        console.log("password =" + passWord);
+        
+        createUser(userName, passWord);
+        
+        $("#RegisterPage").html("");
+        showLoginPage();
+    });
+    
+    // The page element is appended to the container element, this presenting it to the screen.
+    self.$container.append(self.$page);
+}
 
 /***********************************
 * Function to load the front page
@@ -147,8 +219,6 @@ function showFrontPage() {
 ************************************/
 
 function showEvents() {
-    
-    
     
     // Stores 'this' inside self
     var self = this;
@@ -268,8 +338,6 @@ function AddDaysPage() {
     // Adds the Days page title to the toolbar
     $("<div class='weather'>Days</div>").appendTo(self.$page);
     
-    // Declares the amount of days for dummy data
-    
     
     // A simple loop to generate 31 day buttons down the page
     for(var i=1; i <= daysInAMonth; i++){
@@ -278,6 +346,9 @@ function AddDaysPage() {
             
             var id = $(this).attr('id');
             
+            
+            $("#AddDaysPage").html("");
+            showFrontPage();
             console.log("NUMBER = " + id);
         });
         
@@ -363,6 +434,60 @@ function AddYearsPage() {
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
 }
+
+/***********************************
+* Function to create a new date object
+************************************/
+
+//function createDate(_yesterday, _today, _tomorrow) {
+//    var myNewDateObj = {
+//        yesterday: _yesterday,
+//        today: _today,
+//        tomorrow: _tomorrow
+//        
+//    };
+//    
+//    
+//}
+
+
+/***********************************
+* Function to create a new user
+************************************/
+
+window.baseUrl = "http://introtoapps.com/datastore.php?appid=214527872";
+function createUser(_username, _password) {
+    
+    var userObj = {
+        username : _username,
+        password : _password
+    };
+    
+    
+    // Base URL for ajax calls
+    var data = JSON.stringify(userObj);
+    var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) + ".user&data=" + encodeURIComponent(data);
+    console.log(url);
+
+    $.ajax({url: url, cache: false}).
+                    done(function(data) {
+                           alert("result:" + data);                       
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+    });
+
+
+}  
+
+
+
+
+
+
+
+
+
+
 
 
 
