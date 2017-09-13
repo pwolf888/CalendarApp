@@ -40,11 +40,11 @@ app.initialize();
 ************************************/
 
 //// This stores all the months for my months page
-//var monthData = ['Jan','Feb','Mar',
-//                 'Apr','May','Jun',
-//                 'Jul','Aug','Sep',
-//                 'Oct','Nov','Dec'];
-//
+var monthData = ['Jan','Feb','Mar',
+                 'Apr','May','Jun',
+                 'Jul','Aug','Sep',
+                 'Oct','Nov','Dec'];
+
 //// This stores all the names of the days
 //var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 //
@@ -79,7 +79,7 @@ var nMonth;
 
 var nYesterday;
 var nyDay;
-var yMonth;
+var nyMonth;
 
 var nTomorrow;
 var nTomDay;
@@ -377,7 +377,7 @@ function AddDaysPage() {
             
             nYesterday = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%d');
             nyDay = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%A');
-            yMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
+            nyMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
             
             
             $("#AddDaysPage").html("");
@@ -424,8 +424,16 @@ function AddMonthsPage() {
     // A simple loop to generate 12 month buttons down the page
     for(var i=0; i < monthsOfYear; i++){
         
+        
         // The Text on the buttons is made from the monthData Array and the iterator
-        $("<ons-button modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page); 
+        $("<ons-button id='"+i+"' modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page).on('click', function() {
+            var id = $(this).attr('id');
+            nMonth = monthData[id];
+//            nyMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
+//            nTomMonth = new Sugar.Date("'"+monthData[id]+""+id+", 2017'").addDays(1).format('%b');
+            
+            console.log(nMonth,nyMonth,nTomMonth);
+        }); 
     }
     
     // The page element is appended to the container element, this presenting it to the screen.
@@ -493,9 +501,10 @@ function createUser(_username, _password) {
     
     var userObj = {
         username : _username,
-        password : _password
+        password : _password,
+        event: []
+        
     };
-    
     
     // Base URL for ajax calls
     var data = JSON.stringify(userObj);
