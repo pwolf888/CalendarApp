@@ -63,13 +63,27 @@ var tMonth = Sugar.Date().format('%b');
 
 // Yesterday variables
 var yesterday = Sugar.Date().rewind('1 days', true).format('%d');
-var yDay = Sugar.Date().format('%A');
-var yMonth = Sugar.Date().format('%b');
+var yDay = Sugar.Date().rewind('1 days', true).format('%A');
+var yMonth = Sugar.Date().rewind('1 days', true).format('%b');
 
 // Tomorrow variables
 var tomorrow = Sugar.Date().addDays(1).format('%d');
-var tomDay = Sugar.Date().format('%A');
-var tomMonth = Sugar.Date().format('%b');
+var tomDay = Sugar.Date().addDays(1).format('%A');
+var tomMonth = Sugar.Date().addDays(1).format('%b');
+
+
+// New Date variables 
+var nToday;
+var nDay;
+var nMonth;
+
+var nYesterday;
+var nyDay;
+var yMonth;
+
+var nTomorrow;
+var nTomDay;
+var nTomMonth;
 
 // days in month
 var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
@@ -103,7 +117,7 @@ function showLoginPage() {
     
     // add a login button and a register button
     $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
-        showFrontPage();
+        showFrontPage(tMonth, tDay, yesterday, today, tomorrow);
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         showRegisterPage();
@@ -157,7 +171,14 @@ function showRegisterPage() {
 /***********************************
 * Function to load the front page
 ************************************/
-function showFrontPage() {
+function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
+    
+    // Declare variables
+    var fMonth = _month;
+    var fDayOfWeek = _dayOfWeek;
+    var fYesterday = _yesterday;
+    var fToday = _today;
+    var fTomorrow = _tomorrow
     
     // Stores 'this' inside self
     var self = this;
@@ -173,7 +194,7 @@ function showFrontPage() {
     
     $("<div class='clock' id='clock'>"+time+"</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
-    $("<div class='monthOfYear' id='month'>"+tMonth+"</div>").appendTo(self.$page);
+    $("<div class='monthOfYear' id='month'>"+fMonth+"</div>").appendTo(self.$page);
     
     // The ^ button can run the AddDaysPage function if it is clicked
     $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
@@ -186,7 +207,7 @@ function showFrontPage() {
     });
     
     // Adds the day of the week to the page
-    $("<div class='dayOfWeek' id='day'>"+tDay+"</div>").appendTo(self.$page);
+    $("<div class='dayOfWeek' id='day'>"+fDayOfWeek+"</div>").appendTo(self.$page);
     
     // Row container holds the row of days buttons
     var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
@@ -195,16 +216,16 @@ function showFrontPage() {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+fYesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         
         showEvents();
     });
     
     // The Today button can run the showEvents function if it is clicked
-    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+fToday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         showEvents();
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+fTomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         
         showEvents();
     });
@@ -346,10 +367,22 @@ function AddDaysPage() {
             
             var id = $(this).attr('id');
             
+            nToday = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%d');
+            nDay = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%A');
+            nMonth = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%b');
+            
+            nTomorrow = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%d');
+            nTomDay = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%A');
+            nTomMonth = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%b');
+            
+            nYesterday = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%d');
+            nyDay = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%A');
+            yMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
+            
             
             $("#AddDaysPage").html("");
-            showFrontPage();
-            console.log("NUMBER = " + id);
+            showFrontPage(tMonth, nDay, nYesterday, nToday, nTomorrow);
+            
         });
         
     }
