@@ -85,11 +85,11 @@ var nMonth;
 
 // days in month
 //var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
-//var daysInChangedMonth = Sugar.Date().daysInMonth(nMonth);
+//var daysInChangedMonth = Sugar.Date(nMonth).daysInMonth();
 
 
 // Moment days in a month
-var daysInAMonth = moment(tMonth).daysInMonth(); 
+var daysInAMonth = moment().daysInMonth(); 
 var daysInChangedMonth; 
 console.log(daysInChangedMonth);
 
@@ -237,6 +237,8 @@ function showEvents(_today, _month) {
     
     var eventDay = _today;
     var eventMonth = _month;
+    
+    monthChange = false;
     
     // Stores 'this' inside self
     var self = this;
@@ -403,19 +405,21 @@ function AddDaysPage() {
             
             var id = $(this).attr('id');
             
-            nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
+            
             
             if(monthChange == false){
+                nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
                 showEvents(nToday, tMonth);
                 
                 
             } else {
-                
+                nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
                 showEvents(nToday, nMonth);
-                monthChange = false;
-                console.log(nMonth);
+                
+                
+                console.log("NTODAY" + nToday);
             } 
             
         });
@@ -461,11 +465,19 @@ function AddMonthsPage() {
         
         // The Text on the buttons is made from the monthData Array and the iterator
         $("<ons-button id='"+i+"' modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page).on('click', function() {
+            // Get the id of the button
             var id = $(this).attr('id');
-            nMonth = new Sugar.Date("'"+monthData[id]+""+id+", "+year+"'").format('%b');
-            console.log("new month is: " + nMonth)
-            daysInChangedMonth = moment(nMonth).daysInMonth();
+            
+            // New month item to format to 'Jan'
+            nMonth = new Sugar.Date("'"+monthData[id]+" "+nToday+", "+year+"'").format('%b');
+            
+            // Check how many days are in the new month
+            daysInChangedMonth = moment().month(id).year(year).daysInMonth();
+            
+            // Month has changed
             monthChange = true;
+            
+            // Clear screen and addDays page
             $("#AddMonthsPage").html("");
             AddDaysPage();
             
