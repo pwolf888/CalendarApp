@@ -45,6 +45,9 @@ var monthData = ['Jan','Feb','Mar',
                  'Jul','Aug','Sep',
                  'Oct','Nov','Dec'];
 
+// Checks if the month has changed
+var monthChange = false;
+
 //// This stores all the names of the days
 //var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 //
@@ -117,7 +120,7 @@ function showLoginPage() {
     
     // add a login button and a register button
     $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
-        showFrontPage(tMonth, tDay, yesterday, today, tomorrow);
+        showFrontPage();
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         showRegisterPage();
@@ -171,14 +174,8 @@ function showRegisterPage() {
 /***********************************
 * Function to load the front page
 ************************************/
-function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
-    
-    // Declare variables
-    var fMonth = _month;
-    var fDayOfWeek = _dayOfWeek;
-    var fYesterday = _yesterday;
-    var fToday = _today;
-    var fTomorrow = _tomorrow
+function showFrontPage() {
+
     
     // Stores 'this' inside self
     var self = this;
@@ -194,7 +191,7 @@ function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
     
     $("<div class='clock' id='clock'>"+time+"</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
-    $("<div class='monthOfYear' id='month'>"+fMonth+"</div>").appendTo(self.$page);
+    $("<div class='monthOfYear' id='month'>"+tMonth+"</div>").appendTo(self.$page);
     
     // The ^ button can run the AddDaysPage function if it is clicked
     $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
@@ -207,7 +204,7 @@ function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
     });
     
     // Adds the day of the week to the page
-    $("<div class='dayOfWeek' id='day'>"+fDayOfWeek+"</div>").appendTo(self.$page);
+    $("<div class='dayOfWeek' id='day'>"+tDay+"</div>").appendTo(self.$page);
     
     // Row container holds the row of days buttons
     var $rowContainer = $("<div class='ground'></div>").appendTo(self.$page);
@@ -216,18 +213,18 @@ function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+fYesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         
-        showEvents();
+        showEvents(yesterday, yMonth);
     });
     
     // The Today button can run the showEvents function if it is clicked
-    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+fToday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
-        showEvents();
+    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+        showEvents(today, tMonth);
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+fTomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         
-        showEvents();
+        showEvents(tomorrow, tomMonth);
     });
     
     // The page element is appended to the container element, this presenting it to the screen.
@@ -239,7 +236,10 @@ function showFrontPage(_month, _dayOfWeek, _yesterday, _today, _tomorrow) {
 * Function to load Todays Events
 ************************************/
 
-function showEvents() {
+function showEvents(_today, _month) {
+    
+    var eventDay = _today;
+    var eventMonth = _month;
     
     // Stores 'this' inside self
     var self = this;
@@ -269,8 +269,8 @@ function showEvents() {
     var $lRow = $("<ons-row></ons-row>").appendTo($lHead);
     
     // Creates a row of columns - day, month, year
-    $("<ons-col id='day'>"+today+"</ons-col>").appendTo($lRow);
-    $("<ons-col id='month'>"+tMonth+"</ons-col>").appendTo($lRow);
+    $("<ons-col id='day'>"+eventDay+"</ons-col>").appendTo($lRow);
+    $("<ons-col id='month'>"+eventMonth+"</ons-col>").appendTo($lRow);
     $("<ons-col id='year'>"+year+"</ons-col>").appendTo($lRow);
     
     // Displays a coloured triangle, title and time as a single list item
@@ -316,21 +316,47 @@ function AddEventsPage(){
     $("<div class='triContainer'><ons-button modifier='quiet' class='triTag redTag'></ons-button><ons-button modifier='quiet' class='triTag blueTag'></ons-button><ons-button modifier='quiet' class='triTag yellowTag'></ons-button><ons-button modifier='quiet' class='triTag greenTag'></ons-button></div>").appendTo(self.$page);
     
     // Adds an event title input form with placeholder text
-    $("<div class='triContainer' ><ons-input type='text' placeholder='Event Title' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='triContainer' ><ons-input id = 'eventTitle' type='text' placeholder='Event Title' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // Adds a row of 2 col Hours and Minutes
-    $("<div class='timeContainer triContainer'><ons-row><ons-col><ons-input placeholder='HH'></ons-input></ons-col><ons-col><ons-input placeholder='MM'></ons-input></ons-col></ons-row></div>").appendTo(self.$page);
+    $("<div class='timeContainer triContainer'><ons-row><ons-col><ons-input placeholder='HH' id='hours'></ons-input></ons-col><ons-col><ons-input id = 'minutes' placeholder='MM'></ons-input></ons-col></ons-row></div>").appendTo(self.$page);
     
     // Adds an input area for notes about the event
-    $("<div class='noteContainer triContainer' ><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
+//    $("<div class='noteContainer triContainer' ><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
     
     // Adds a large button to add the event
-    $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page);
+    $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page).on('click', function(){
+        var eventTitle = $('#eventTitle').val();
+        $('#eventTitle').val(eventTitle);
+        var hours = $('#hours').val();
+        $('#hours').val(hours);
+        var mins = $('#minutes').val();
+        $('#minutes').val(mins);
+        
+        
+        var newDate = Sugar.Date();
+        console.log(mins);
+        
+    });
+                                                                                                                                   
     
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
 }
 
+/***********************************
+* Function to collect event data and store into an object
+************************************/
+function storeEvent(_date, _colorTri, _eventTitle) {
+    
+    var eventObj = {
+        date: _date,
+        colorTri: _colorTri,
+        event: _eventTitle
+    };
+    
+    
+}
 
 /***********************************
 * Function to add Days Page
@@ -367,21 +393,13 @@ function AddDaysPage() {
             
             var id = $(this).attr('id');
             
-            nToday = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%d');
-            nDay = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%A');
-            nMonth = new Sugar.Date("'"+tMonth+""+id+", 2017'").format('%b');
+            nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
             
-            nTomorrow = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%d');
-            nTomDay = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%A');
-            nTomMonth = new Sugar.Date("'"+tomMonth+""+id+", 2017'").addDays(1).format('%b');
             
-            nYesterday = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%d');
-            nyDay = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%A');
-            nyMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
-            
+            nMonth = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%b');
             
             $("#AddDaysPage").html("");
-            showFrontPage(tMonth, nDay, nYesterday, nToday, nTomorrow);
+            showEvents(nToday, nMonth);
             
         });
         
@@ -429,10 +447,7 @@ function AddMonthsPage() {
         $("<ons-button id='"+i+"' modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page).on('click', function() {
             var id = $(this).attr('id');
             nMonth = monthData[id];
-//            nyMonth = new Sugar.Date("'"+yMonth+""+id+", 2017'").rewind('1 days', true).format('%b');
-//            nTomMonth = new Sugar.Date("'"+monthData[id]+""+id+", 2017'").addDays(1).format('%b');
             
-            console.log(nMonth,nyMonth,nTomMonth);
         }); 
     }
     
@@ -480,16 +495,6 @@ function AddYearsPage() {
 * Function to create a new date object
 ************************************/
 
-//function createDate(_yesterday, _today, _tomorrow) {
-//    var myNewDateObj = {
-//        yesterday: _yesterday,
-//        today: _today,
-//        tomorrow: _tomorrow
-//        
-//    };
-//    
-//    
-//}
 
 
 /***********************************

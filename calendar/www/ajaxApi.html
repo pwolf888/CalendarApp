@@ -13,7 +13,7 @@
                 username : _username,
                 password : _password
             };
-
+            
             var data = JSON.stringify(userObj);
             var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) +".user&data=" + encodeURIComponent(data);
 
