@@ -42,11 +42,14 @@ app.initialize();
 //// This stores all the months for my months page
 var monthData = ['Jan','Feb','Mar',
                  'Apr','May','Jun',
-                 'Jul','Aug','Sep',
+                 'Jul','Aug','Sept',
                  'Oct','Nov','Dec'];
 
 // Checks if the month has changed
 var monthChange = false;
+var changedMonth;
+
+
 
 //// This stores all the names of the days
 //var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -58,6 +61,7 @@ var YearData = ['17','18','19','20'];
 // Sugar Date variables
 var time = Sugar.Date().format('%H:%M');
 var year = Sugar.Date().format('%Y');
+console.log(year);
 
 // Today variables
 var today = Sugar.Date().format('%d');
@@ -77,24 +81,17 @@ var tomMonth = Sugar.Date().addDays(1).format('%b');
 
 // New Date variables 
 var nToday;
-var nDay;
 var nMonth;
 
-var nYesterday;
-var nyDay;
-var nyMonth;
-
-var nTomorrow;
-var nTomDay;
-var nTomMonth;
-
 // days in month
-var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
-console.log(daysInAMonth);
+//var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
+//var daysInChangedMonth = Sugar.Date().daysInMonth(nMonth);
 
 
-
-
+// Moment days in a month
+var daysInAMonth = moment(tMonth).daysInMonth(); 
+var daysInChangedMonth; 
+console.log(daysInChangedMonth);
 
 // This sets up my document with the front page.
 $(document).ready(function(){
@@ -334,7 +331,7 @@ function AddEventsPage(){
         $('#minutes').val(mins);
         
         
-        var newDate = Sugar.Date();
+        //var newDate = Sugar.Date();
         console.log(mins);
         
     });
@@ -374,6 +371,7 @@ function AddDaysPage() {
     
     // The ^ button will run the AddMonthsPage function moving up a page if clicked
     $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#AddDaysPage").html("");
         AddMonthsPage();
     });
     
@@ -387,7 +385,19 @@ function AddDaysPage() {
     
     
     // A simple loop to generate 31 day buttons down the page
-    for(var i=1; i <= daysInAMonth; i++){
+    
+    var monthSize;
+    if(monthChange == false){
+        monthSize = daysInAMonth;
+        console.log("FALSE");
+    } else {
+        monthSize = daysInChangedMonth;
+        console.log("TRUE" + monthSize);
+    }
+    
+    
+    
+    for(var i=1; i <= monthSize; i++){
         // The Text on the buttons is made from the iterater i
         $("<ons-button id='"+i+"' modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page).on('click', function(){
             
@@ -395,11 +405,18 @@ function AddDaysPage() {
             
             nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
             
-            
-            nMonth = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%b');
-            
-            $("#AddDaysPage").html("");
-            showEvents(nToday, nMonth);
+            if(monthChange == false){
+                $("#AddDaysPage").html("");
+                showEvents(nToday, tMonth);
+                
+                
+            } else {
+                
+                $("#AddDaysPage").html("");
+                showEvents(nToday, nMonth);
+                monthChange = false;
+                console.log(nMonth);
+            } 
             
         });
         
@@ -442,11 +459,15 @@ function AddMonthsPage() {
     // A simple loop to generate 12 month buttons down the page
     for(var i=0; i < monthsOfYear; i++){
         
-        
         // The Text on the buttons is made from the monthData Array and the iterator
         $("<ons-button id='"+i+"' modifier='quiet' class='monthStyle'>"+monthData[i]+"</ons-button>").appendTo(self.$page).on('click', function() {
             var id = $(this).attr('id');
-            nMonth = monthData[id];
+            nMonth = new Sugar.Date("'"+monthData[id]+""+id+", "+year+"'").format('%b');
+            console.log("new month is: " + nMonth)
+            daysInChangedMonth = moment(nMonth).daysInMonth();
+            monthChange = true;
+            $("#AddMonthsPage").html("");
+            AddDaysPage();
             
         }); 
     }
@@ -494,8 +515,6 @@ function AddYearsPage() {
 /***********************************
 * Function to create a new date object
 ************************************/
-
-
 
 /***********************************
 * Function to create a new user
