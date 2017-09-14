@@ -39,6 +39,8 @@ app.initialize();
 * GLOBAL VARIABLES
 ************************************/
 
+var counter = 0;
+
 //// This stores all the months for my months page
 var monthData = ['Jan','Feb','Mar',
                  'Apr','May','Jun',
@@ -49,11 +51,9 @@ var monthData = ['Jan','Feb','Mar',
 var monthChange = false;
 var changedMonth;
 
-
-
-//// This stores all the names of the days
+// This stores all the names of the days
 //var dayData = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-//
+
 //// This stores all the Years for my years page
 var YearData = ['17','18','19','20'];
 
@@ -83,15 +83,9 @@ var tomMonth = Sugar.Date().addDays(1).format('%b');
 var nToday;
 var nMonth;
 
-// days in month
-//var daysInAMonth = Sugar.Date().daysInMonth(tMonth);
-//var daysInChangedMonth = Sugar.Date(nMonth).daysInMonth();
-
-
 // Moment days in a month
 var daysInAMonth = moment().daysInMonth(); 
 var daysInChangedMonth; 
-console.log(daysInChangedMonth);
 
 // This sets up my document with the front page.
 $(document).ready(function(){
@@ -173,7 +167,7 @@ function showRegisterPage() {
 ************************************/
 function showFrontPage() {
 
-    
+    counter = 2;
     // Stores 'this' inside self
     var self = this;
     
@@ -211,16 +205,17 @@ function showFrontPage() {
     
     // Then three columns are appended to the row variable
     $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
-        
+        counter = 3;
         showEvents(yesterday, yMonth);
     });
     
     // The Today button can run the showEvents function if it is clicked
     $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+        counter = 2;
         showEvents(today, tMonth);
     });
     $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
-        
+        counter = 4;
         showEvents(tomorrow, tomMonth);
     });
     
@@ -311,8 +306,23 @@ function AddEventsPage(){
         $("#addEventsPage").html("");
     });
     
+    var $triContainer = $("<div class='triContainer'></div>").appendTo(self.$page);
+    
+    var triColor;
     // Adds 4 coloured triangle tags, allowing the user to customize their event
-    $("<div class='triContainer'><ons-button modifier='quiet' class='triTag redTag'></ons-button><ons-button modifier='quiet' class='triTag blueTag'></ons-button><ons-button modifier='quiet' class='triTag yellowTag'></ons-button><ons-button modifier='quiet' class='triTag greenTag'></ons-button></div>").appendTo(self.$page);
+    $("<ons-button modifier='quiet' class='triTag redTag'></ons-button>").appendTo($triContainer).on('click', function() {
+        triColor = 0;
+    });
+    $("<ons-button modifier='quiet' class='triTag blueTag'></ons-button>").appendTo($triContainer).appendTo($triContainer).on('click', function() {
+        triColor = 1;
+    });
+    $("<ons-button modifier='quiet' class='triTag yellowTag'></ons-button>").appendTo($triContainer).appendTo($triContainer).on('click', function() {
+        triColor = 2;
+    });
+    $("<ons-button modifier='quiet' class='triTag greenTag'></ons-button>").appendTo($triContainer).appendTo($triContainer).on('click', function() {
+        triColor = 3;
+    });
+    
     
     // Adds an event title input form with placeholder text
     $("<div class='triContainer' ><ons-input id = 'eventTitle' type='text' placeholder='Event Title' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
@@ -325,6 +335,8 @@ function AddEventsPage(){
     
     // Adds a large button to add the event
     $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page).on('click', function(){
+        
+        
         var eventTitle = $('#eventTitle').val();
         $('#eventTitle').val(eventTitle);
         var hours = $('#hours').val();
@@ -332,9 +344,46 @@ function AddEventsPage(){
         var mins = $('#minutes').val();
         $('#minutes').val(mins);
         
+        var time = hours.concat(":"+mins);
         
-        //var newDate = Sugar.Date();
-        console.log(mins);
+        
+        var date;
+        switch (counter) {
+           
+            case 1:
+                date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'");
+                console.log("1");
+                console.log(date);
+                break;
+            case 2:
+                console.log("2");
+                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'");
+                console.log(date);
+                break;
+            case 3:
+                console.log("3");
+                date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'");
+                console.log(date);
+                break;
+            case 4:
+                console.log("4");
+                date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'");
+                console.log(date);
+                break;
+            default:
+                console.log("default");
+                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'");
+                console.log(date);
+                break;
+                
+                
+        }
+        
+        storeEvent(date, time, triColor, eventTitle);
+        
+        
+        
+       
         
     });
                                                                                                                                    
@@ -346,15 +395,19 @@ function AddEventsPage(){
 /***********************************
 * Function to collect event data and store into an object
 ************************************/
-function storeEvent(_date, _colorTri, _eventTitle) {
+function storeEvent(_date, _time, _colorTri, _eventTitle) {
     
     var eventObj = {
         date: _date,
+        time: _time,
         colorTri: _colorTri,
         event: _eventTitle
     };
     
-    
+    console.log(eventObj.date);
+    console.log(eventObj.time);
+    console.log(eventObj.colorTri);
+    console.log(eventObj.event);
 }
 
 /***********************************
@@ -409,12 +462,14 @@ function AddDaysPage() {
             if(monthChange == false){
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
+                counter = 2;
                 showEvents(nToday, tMonth);
                 
             // If the month is changed then a new day and new month will be returned    
             } else {
                 nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
+                counter = 1;
                 showEvents(nToday, nMonth);
             } 
         }); 
