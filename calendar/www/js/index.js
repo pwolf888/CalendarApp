@@ -386,8 +386,7 @@ function AddDaysPage() {
     $("<div class='weather'>Days</div>").appendTo(self.$page);
     
     
-    // A simple loop to generate 31 day buttons down the page
-    
+    // Change the month size depending on what month is clicked
     var monthSize;
     if(monthChange == false){
         monthSize = daysInAMonth;
@@ -398,32 +397,27 @@ function AddDaysPage() {
     }
     
     
-    
+    // A simple loop to generate the correct amount of day buttons down the page
     for(var i=1; i <= monthSize; i++){
         // The Text on the buttons is made from the iterater i
         $("<ons-button id='"+i+"' modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page).on('click', function(){
             
+            // Id of the button
             var id = $(this).attr('id');
             
-            
-            
+            // If the month is this month send the altered day and todays month
             if(monthChange == false){
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
                 showEvents(nToday, tMonth);
                 
-                
+            // If the month is changed then a new day and new month will be returned    
             } else {
                 nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
                 showEvents(nToday, nMonth);
-                
-                
-                console.log("NTODAY" + nToday);
             } 
-            
-        });
-        
+        }); 
     }
     
     // The page element is appended to the container element, this presenting it to the screen.
