@@ -87,6 +87,16 @@ var nMonth;
 var daysInAMonth = moment().daysInMonth(); 
 var daysInChangedMonth; 
 
+// Tri color array
+var triArray = [
+    "triTag redTag",
+    "triTag blueTag",
+    "triTag yellowTag",
+    "triTag greenTag"
+];
+
+var date;
+
 // This sets up my document with the front page.
 $(document).ready(function(){
     showLoginPage();    
@@ -258,7 +268,7 @@ function showEvents(_today, _month) {
     
     // Stores all the list items, - List, List Header, List Row
     var $listContainer = $("<div class='listContainer'></div>").appendTo(self.$page);
-    var $list = $("<ons-list></ons-list").appendTo($listContainer);
+    var $list = $("<ons-list></ons-list>").appendTo($listContainer);
     var $lHead = $("<ons-list-header class='lHeader'></ons-list-header>").appendTo($list);
     var $lRow = $("<ons-row></ons-row>").appendTo($lHead);
     
@@ -267,6 +277,7 @@ function showEvents(_today, _month) {
     $("<ons-col id='month'>"+eventMonth+"</ons-col>").appendTo($lRow);
     $("<ons-col id='year'>"+year+"</ons-col>").appendTo($lRow);
     
+    $("<div id='content'></div>").appendTo($list);
     // Displays a coloured triangle, title and time as a single list item
 //    var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
 //    $("<div class='left'><div class='triTag blueTag'></div></div>").appendTo($lItem);
@@ -308,7 +319,8 @@ function AddEventsPage(){
     
     var $triContainer = $("<div class='triContainer'></div>").appendTo(self.$page);
     
-    var triColor;
+    // Default color
+    var triColor = 0;
     // Adds 4 coloured triangle tags, allowing the user to customize their event
     $("<ons-button modifier='quiet' class='triTag redTag'></ons-button>").appendTo($triContainer).on('click', function() {
         triColor = 0;
@@ -347,33 +359,32 @@ function AddEventsPage(){
         var time = hours.concat(":"+mins);
         
         
-        var date;
+        
         switch (counter) {
            
             case 1:
                 date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
-                
                 console.log("1");
                 console.log(date);
                 break;
             case 2:
                 console.log("2");
-                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'");
+                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
                 console.log(date);
                 break;
             case 3:
                 console.log("3");
-                date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'");
+                date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
                 console.log(date);
                 break;
             case 4:
                 console.log("4");
-                date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'");
+                date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
                 console.log(date);
                 break;
             default:
                 console.log("default");
-                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'");
+                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
                 console.log(date);
                 break;
                 
@@ -443,12 +454,15 @@ function AddDaysPage() {
             // Id of the button
             var id = $(this).attr('id');
             
+            var loadDate;
             // If the month is this month send the altered day and todays month
             if(monthChange == false){
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
                 counter = 2;
                 showEvents(nToday, tMonth);
+                loadDate = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
                 
             // If the month is changed then a new day and new month will be returned    
             } else {
@@ -456,6 +470,8 @@ function AddDaysPage() {
                 $("#AddDaysPage").html("");
                 counter = 1;
                 showEvents(nToday, nMonth);
+                loadDate = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
             } 
         }); 
     }
@@ -625,21 +641,34 @@ function storeEvent(_date, _time, _colorTri, _eventTitle) {
 /***********************************
 * Function to load event data and parse it into an object
 ************************************/
-function loadEvent(_date, _time, _colorTri, _eventTitle) {
+function loadEvent(_date) {
     
-//    console.log(eventObj.date);
-//    console.log(eventObj.time);
-//    console.log(eventObj.colorTri);
-//    console.log(eventObj.event);
+    var newDateStamp = _date;
     
     
-    var data = JSON.stringify(eventObj);
-        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(_date) +"&data=" + encodeURIComponent(data);
+        var url = baseUrl + "&action=load&objectid=" + newDateStamp +".event";
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
                            alert("result:" + data);
+                        // Load events 
+                        var loadedData = JSON.parse(data);
+                        var contents = '';
+                        for(var i = 0; i < 1; i++) {
+                            
+//                            var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
+//                            $("<div class='left'><div class='"+triArray[loadedData.colorTri]+"'></div>cotents + = </div>").appendTo($lItem);
+//                            $("<div><span class='list-item__title'>"+loadedData.event+"</span><span class='list-item__subtitle'>"+loadedData.time+"</span></div>").appendTo($lItem);
+//                            
+                            
+                            contents += "<ons-list-item>";
+                            contents += "<div class='left'><div class='"+triArray[loadedData.colorTri]+"'></div></div>";
+                            contents += "<div><span class='list-item__title'>"+loadedData.event+"</span><span class='list-item__subtitle'>"+loadedData.time+"</span></div></ons-list-item>"; 
+                        }
                         
+                        
+                        document.getElementById('content').innerHTML = contents;
+            
                         }).fail(function(jqXHR, testStatus) {
                             alert("request failed: ", testStatus );
         });
