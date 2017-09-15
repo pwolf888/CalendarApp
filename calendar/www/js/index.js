@@ -268,17 +268,17 @@ function showEvents(_today, _month) {
     $("<ons-col id='year'>"+year+"</ons-col>").appendTo($lRow);
     
     // Displays a coloured triangle, title and time as a single list item
-    var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triTag blueTag'></div></div>").appendTo($lItem);
-    $("<div><span class='list-item__title'>Meeting  </span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
-    
-    var $lItem2 = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triTag redTag'></div></div>").appendTo($lItem2);
-    $("<div><span class='list-item__title'>Walk Dog  </span><span class='list-item__subtitle'>16:00</span></div>").appendTo($lItem2);
-    
-    var $lItem3 = $("<ons-list-item></ons-list-item>").appendTo($list);
-    $("<div class='left'><div class='triTag yellowTag'></div></div>").appendTo($lItem3);
-    $("<div><span class='list-item__title'>Party  </span><span class='list-item__subtitle'>17:00</span></div>").appendTo($lItem3);
+//    var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
+//    $("<div class='left'><div class='triTag blueTag'></div></div>").appendTo($lItem);
+//    $("<div><span class='list-item__title'>Meeting  </span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
+//    
+//    var $lItem2 = $("<ons-list-item></ons-list-item>").appendTo($list);
+//    $("<div class='left'><div class='triTag redTag'></div></div>").appendTo($lItem2);
+//    $("<div><span class='list-item__title'>Walk Dog  </span><span class='list-item__subtitle'>16:00</span></div>").appendTo($lItem2);
+//    
+//    var $lItem3 = $("<ons-list-item></ons-list-item>").appendTo($list);
+//    $("<div class='left'><div class='triTag yellowTag'></div></div>").appendTo($lItem3);
+//    $("<div><span class='list-item__title'>Party  </span><span class='list-item__subtitle'>17:00</span></div>").appendTo($lItem3);
     
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
@@ -351,7 +351,8 @@ function AddEventsPage(){
         switch (counter) {
            
             case 1:
-                date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'");
+                date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
+                
                 console.log("1");
                 console.log(date);
                 break;
@@ -392,23 +393,7 @@ function AddEventsPage(){
     self.$container.append(self.$page);
 }
 
-/***********************************
-* Function to collect event data and store into an object
-************************************/
-function storeEvent(_date, _time, _colorTri, _eventTitle) {
-    
-    var eventObj = {
-        date: _date,
-        time: _time,
-        colorTri: _colorTri,
-        event: _eventTitle
-    };
-    
-    console.log(eventObj.date);
-    console.log(eventObj.time);
-    console.log(eventObj.colorTri);
-    console.log(eventObj.event);
-}
+
 
 /***********************************
 * Function to add Days Page
@@ -607,7 +592,58 @@ function createUser(_username, _password) {
 }  
 
 
+/***********************************
+* Function to collect event data and store into an object
+************************************/
+function storeEvent(_date, _time, _colorTri, _eventTitle) {
+    
+    var eventObj = {
+        date: _date,
+        time: _time,
+        colorTri: _colorTri,
+        event: _eventTitle
+    };
+    
+//    console.log(eventObj.date);
+//    console.log(eventObj.time);
+//    console.log(eventObj.colorTri);
+//    console.log(eventObj.event);
+    
+    
+    var data = JSON.stringify(eventObj);
+        var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +".event&data=" + encodeURIComponent(data);
 
+        $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);                       
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+        });
+}
+
+
+/***********************************
+* Function to load event data and parse it into an object
+************************************/
+function loadEvent(_date, _time, _colorTri, _eventTitle) {
+    
+//    console.log(eventObj.date);
+//    console.log(eventObj.time);
+//    console.log(eventObj.colorTri);
+//    console.log(eventObj.event);
+    
+    
+    var data = JSON.stringify(eventObj);
+        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(_date) +"&data=" + encodeURIComponent(data);
+
+        $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);
+                        
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+        });
+}
 
 
 

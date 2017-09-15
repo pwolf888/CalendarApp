@@ -27,6 +27,27 @@
 
         }    
         
+        
+        function storeEvent(_date, _time, _colorTri, _eventTitle) {
+    
+            var eventObj = {
+                date: _date,
+                time: _time,
+                colorTri: _colorTri,
+                event: _eventTitle
+            };
+            
+            var data = JSON.stringify(eventObj);
+            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +".event&data=" + encodeURIComponent(data);
+
+            $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);                       
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+                        });
+            
+        }
 //    var userObj = {
 //                username : _username,
 //                password : _password,
