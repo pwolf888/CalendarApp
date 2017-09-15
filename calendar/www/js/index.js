@@ -646,7 +646,7 @@ function loadEvent(_date) {
     var newDateStamp = _date;
     
     
-        var url = baseUrl + "&action=load&objectid=" + newDateStamp +".event";
+        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(newDateStamp) +".event";
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
@@ -654,12 +654,7 @@ function loadEvent(_date) {
                         // Load events 
                         var loadedData = JSON.parse(data);
                         var contents = '';
-                        for(var i = 0; i < 1; i++) {
-                            
-//                            var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
-//                            $("<div class='left'><div class='"+triArray[loadedData.colorTri]+"'></div>cotents + = </div>").appendTo($lItem);
-//                            $("<div><span class='list-item__title'>"+loadedData.event+"</span><span class='list-item__subtitle'>"+loadedData.time+"</span></div>").appendTo($lItem);
-//                            
+                        for(var i = 0; i < 1; i++) {                           
                             
                             contents += "<ons-list-item>";
                             contents += "<div class='left'><div class='"+triArray[loadedData.colorTri]+"'></div></div>";
