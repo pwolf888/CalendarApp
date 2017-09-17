@@ -38,7 +38,7 @@
             };
             
             var data = JSON.stringify(eventObj);
-            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +".event&data=" + encodeURIComponent(data);
+            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +"&data=" + encodeURIComponent(data);
 
             $.ajax({url: url, cache: false}).
                         done(function(data) {

@@ -96,7 +96,7 @@ var triArray = [
 ];
 
 var date;
-
+var userName;
 // This sets up my document with the front page.
 $(document).ready(function(){
     showLoginPage();    
@@ -116,12 +116,20 @@ function showLoginPage() {
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
     // Add 2 input boxes username and password
-    $("<div class='inputLogin'><ons-input type='text' placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
-    $("<div class='inputLogin'><ons-input type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputLogin'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
     $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
-        showFrontPage();
+        userName = $('#userName').val();
+        $('#userName').val(userName);
+        var passWord = $('#passWord').val();
+        $('#passWord').val(passWord);
+        
+        loadUser(userName, passWord);
+        
+        
+        //showFrontPage();
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         showRegisterPage();
@@ -217,16 +225,22 @@ function showFrontPage() {
     $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 3;
         showEvents(yesterday, yMonth);
+        date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
+        loadEvent(date);
     });
     
     // The Today button can run the showEvents function if it is clicked
     $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 2;
         showEvents(today, tMonth);
+        date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
+        loadEvent(date);
     });
     $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 4;
         showEvents(tomorrow, tomMonth);
+        date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
+        loadEvent(date);
     });
     
     // The page element is appended to the container element, this presenting it to the screen.
@@ -282,14 +296,6 @@ function showEvents(_today, _month) {
 //    var $lItem = $("<ons-list-item></ons-list-item>").appendTo($list);
 //    $("<div class='left'><div class='triTag blueTag'></div></div>").appendTo($lItem);
 //    $("<div><span class='list-item__title'>Meeting  </span><span class='list-item__subtitle'>14:00</span></div>").appendTo($lItem);
-//    
-//    var $lItem2 = $("<ons-list-item></ons-list-item>").appendTo($list);
-//    $("<div class='left'><div class='triTag redTag'></div></div>").appendTo($lItem2);
-//    $("<div><span class='list-item__title'>Walk Dog  </span><span class='list-item__subtitle'>16:00</span></div>").appendTo($lItem2);
-//    
-//    var $lItem3 = $("<ons-list-item></ons-list-item>").appendTo($list);
-//    $("<div class='left'><div class='triTag yellowTag'></div></div>").appendTo($lItem3);
-//    $("<div><span class='list-item__title'>Party  </span><span class='list-item__subtitle'>17:00</span></div>").appendTo($lItem3);
     
     // The page element is appended to the container element, this presenting it to the screen.
     self.$container.append(self.$page);
@@ -585,29 +591,76 @@ function AddYearsPage() {
 window.baseUrl = "http://introtoapps.com/datastore.php?appid=214527872";
 function createUser(_username, _password) {
     
+    window.username = _username;
+    
     var userObj = {
         username : _username,
         password : _password,
-        event: []
         
     };
+    
+    var eventArray = JSON.stringify([]);
     
     // Base URL for ajax calls
     var data = JSON.stringify(userObj);
     var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) + ".user&data=" + encodeURIComponent(data);
-    console.log(url);
+    
 
-    $.ajax({url: url, cache: false}).
-                    done(function(data) {
-                           alert("result:" + data);                       
-                        }).fail(function(jqXHR, testStatus) {
-                            alert("request failed: ", testStatus );
+    $.ajax({
+        url: url,
+        cache: false
+    }).done(function(data) {
+        alert("result:" + data);                       
+    }).fail(function(jqXHR, testStatus) {
+        alert("request failed: ", testStatus );
+    });
+    
+    var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) + ".events&data=" + encodeURIComponent(eventArray);
+
+    $.ajax({
+        url: url,
+        cache: false
+    }).done(function(eventsArray) {
+        alert("result:" + eventsArray);                       
+    }).fail(function(jqXHR, testStatus) {
+        alert("request failed: ", testStatus );
     });
 
 
 }  
 
+/***********************************
+* Function to Load User
+************************************/
+function loadUser(_username, _password) {
+    
+    var userName = _username;
+    var passWord = _password;
+    
+    
+    var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(_username) +".user";
 
+        $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);
+                        // Load events 
+                        var loadedData = JSON.parse(data);
+                        if (_username == loadedData.username && _password == loadedData.password ){
+                            loggedIn = true;
+                            alert("logged in");
+                            $("#LoginPage").html("");
+                            showFrontPage();
+                        } else {
+                            alert("Username or password is incorrect!");  
+                        }
+                        
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+            
+        });
+    
+    
+}
 /***********************************
 * Function to collect event data and store into an object
 ************************************/
@@ -619,6 +672,8 @@ function storeEvent(_date, _time, _colorTri, _eventTitle) {
         colorTri: _colorTri,
         event: _eventTitle
     };
+
+    
     
 //    console.log(eventObj.date);
 //    console.log(eventObj.time);
@@ -627,8 +682,8 @@ function storeEvent(_date, _time, _colorTri, _eventTitle) {
     
     
     var data = JSON.stringify(eventObj);
-        var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +".event&data=" + encodeURIComponent(data);
-
+        var url = baseUrl + "&action=append&objectid=" + encodeURIComponent(userName) +".events&data=" + encodeURIComponent(data);
+        
         $.ajax({url: url, cache: false}).
                         done(function(data) {
                            alert("result:" + data);                       
@@ -646,18 +701,20 @@ function loadEvent(_date) {
     var newDateStamp = _date;
     
     
-        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(newDateStamp) +".event";
+        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(newDateStamp) +".events";
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
                            alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
+                        console.log(loadedData.triColor);
+                        
                         var contents = '';
                         for(var i = 0; i < 1; i++) {                           
                             
                             contents += "<ons-list-item>";
-                            contents += "<div class='left'><div class='"+triArray[loadedData.colorTri]+"'></div></div>";
+                            contents += "<div class='left'><div class='"+triArray[loadedData.triColor]+"'></div></div>";
                             contents += "<div><span class='list-item__title'>"+loadedData.event+"</span><span class='list-item__subtitle'>"+loadedData.time+"</span></div></ons-list-item>"; 
                         }
                         
