@@ -705,14 +705,10 @@ function loadEvent(_date) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                           alert("result:" + data);
+                        //alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
-                        
-                            
-                            
-                            
-                        console.log(date);        
+                                
                         var contents = '';
                         var dateCounter = 0;
                         for(var i = 0; i < loadedData.length; i++) {                           
@@ -723,16 +719,19 @@ function loadEvent(_date) {
                                     document.getElementById('content').innerHTML = contents;
                                     dateCounter++;
                                     
-                                } else if(dateCounter == 0) {
+                                    } 
+                                }
+                                if(dateCounter == 0) {
                                     contents += "Add a new event"
                                     contents += "<ons-list-item>";
                                     contents += "<div class='left'><div class='"+triArray[0]+"'></div></div>";
                                     contents += "<div><span class='list-item__title'></span><span class='list-item__subtitle'></span></div></ons-list-item>"; 
-                                    
+                                    document.getElementById('content').innerHTML = contents;
+                                    dateCounter++;
                                 }
-                            }
                             
-                            document.getElementById('content').innerHTML = contents;
+                            
+                            
                         
                         
                         }).fail(function(jqXHR, testStatus) {
