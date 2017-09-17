@@ -224,23 +224,23 @@ function showFrontPage() {
     // Then three columns are appended to the row variable
     $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 3;
-        showEvents(yesterday, yMonth);
         date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
+        showEvents(yesterday, yMonth);
     });
     
     // The Today button can run the showEvents function if it is clicked
     $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 2;
-        showEvents(today, tMonth);
         date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
+        showEvents(today, tMonth);
     });
     $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
         counter = 4;
-        showEvents(tomorrow, tomMonth);
         date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
+        showEvents(tomorrow, tomMonth);
     });
     
     // The page element is appended to the container element, this presenting it to the screen.
@@ -701,28 +701,43 @@ function loadEvent(_date) {
     var newDateStamp = _date;
     
     
-        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(newDateStamp) +".events";
+        var url = baseUrl + "&action=load&objectid=" + encodeURIComponent(userName) +".events";
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
                            alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
-                        console.log(loadedData.triColor);
                         
-                        var contents = '';
-                        for(var i = 0; i < 1; i++) {                           
                             
-                            contents += "<ons-list-item>";
-                            contents += "<div class='left'><div class='"+triArray[loadedData.triColor]+"'></div></div>";
-                            contents += "<div><span class='list-item__title'>"+loadedData.event+"</span><span class='list-item__subtitle'>"+loadedData.time+"</span></div></ons-list-item>"; 
-                        }
+                            
+                            
+                        console.log(date);        
+                        var contents = '';
+                        var dateCounter = 0;
+                        for(var i = 0; i < loadedData.length; i++) {                           
+                                if(loadedData[i].date == newDateStamp){
+                                    contents += "<ons-list-item>";
+                                    contents += "<div class='left'><div class='"+triArray[loadedData[i].colorTri]+"'></div></div>";
+                                    contents += "<div><span class='list-item__title'>"+loadedData[i].event+"</span><span class='list-item__subtitle'>"+loadedData[i].time+"</span></div></ons-list-item>"; 
+                                    document.getElementById('content').innerHTML = contents;
+                                    dateCounter++;
+                                    
+                                } else if(dateCounter == 0) {
+                                    contents += "Add a new event"
+                                    contents += "<ons-list-item>";
+                                    contents += "<div class='left'><div class='"+triArray[0]+"'></div></div>";
+                                    contents += "<div><span class='list-item__title'></span><span class='list-item__subtitle'></span></div></ons-list-item>"; 
+                                    
+                                }
+                            }
+                            
+                            document.getElementById('content').innerHTML = contents;
                         
                         
-                        document.getElementById('content').innerHTML = contents;
-            
                         }).fail(function(jqXHR, testStatus) {
                             alert("request failed: ", testStatus );
+                        
         });
 }
 
