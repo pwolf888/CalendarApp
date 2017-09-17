@@ -672,13 +672,6 @@ function storeEvent(_date, _time, _colorTri, _eventTitle) {
         colorTri: _colorTri,
         event: _eventTitle
     };
-
-    
-    
-//    console.log(eventObj.date);
-//    console.log(eventObj.time);
-//    console.log(eventObj.colorTri);
-//    console.log(eventObj.event);
     
     
     var data = JSON.stringify(eventObj);
@@ -729,9 +722,6 @@ function loadEvent(_date) {
                                     document.getElementById('content').innerHTML = contents;
                                     dateCounter++;
                                 }
-                            
-                            
-                            
                         
                         
                         }).fail(function(jqXHR, testStatus) {

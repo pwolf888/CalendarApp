@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+    <script>
+   
+        
+        window.baseUrl = "http://introtoapps.com/datastore.php?appid=214527872"
+        function createUser(_username, _password) {
+            var userObj = {
+                username : _username,
+                password : _password
+            };
+            
+            var data = JSON.stringify(userObj);
+            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_username) +".user&data=" + encodeURIComponent(data);
+
+            $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);                       
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+                        });
+
+
+        }    
+        
+        
+        function storeEvent(_date, _time, _colorTri, _eventTitle) {
+    
+            var eventObj = {
+                date: _date,
+                time: _time,
+                colorTri: _colorTri,
+                event: _eventTitle
+            };
+            
+            var data = JSON.stringify(eventObj);
+            var url = baseUrl + "&action=save&objectid=" + encodeURIComponent(_date) +"&data=" + encodeURIComponent(data);
+
+            $.ajax({url: url, cache: false}).
+                        done(function(data) {
+                           alert("result:" + data);                       
+                        }).fail(function(jqXHR, testStatus) {
+                            alert("request failed: ", testStatus );
+                        });
+            
+        }
+//    var userObj = {
+//                username : _username,
+//                password : _password,
+//                //[colour: _colour, event: _event, time: _time, notes: _notes]
+//            };
+    
+//    var myData= '{ "UserData":['+'{ "userName":"Jono", "Password":"Jeff" }]}';
+        
+        
+//    $.ajax({
+//         url:"http://introtoapps.com/datastore.php?action=append&appid=214527872",
+//         dataType: 'json',
+//         success:function(data) {
+//             myData.
+//         },
+//        error: function(xhr, ajaxOptions, thrownError) {
+//            alert(xhr.status);
+//            alert(thrownError);
+//        }
+//    });
+        
+//     $.ajax({
+//            url: "http://introtoapps.com/datastore.php?action=list&appid=12345678",
+//            dataType: 'json',
+//            success: function (msg) {
+//                console.log(msg);                
+//            },
+//            error: function (xhr, ajaxOptions, thrownError) {
+//                alert(xhr.status);
+//                alert(thrownError);
+//      }
+//    });
+        
+        $(document).ready(function() {
+             createUser("Jonboy","supercoolpassword");
+            
+        });
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
