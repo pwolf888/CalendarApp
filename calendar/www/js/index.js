@@ -223,7 +223,7 @@ function showFrontPage() {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 3;
         date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
@@ -232,13 +232,13 @@ function showFrontPage() {
     });
     
     // The Today button can run the showEvents function if it is clicked
-    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 2;
         date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
         showEvents(today, tMonth);
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click', function(){
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 4;
         date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
@@ -271,13 +271,13 @@ function showEvents(_today, _month) {
     self.$page = $("<ons-page id='events' class='EventsPageBgGrad'></ons-page>");
     
     // The ^ button will remove all content from screen and show the Front Page again
-    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
         $("#EventsPage").html("");
     });
     
     // The + button can run the AddEventsPage function if it is clicked
-    $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
-        $("#ShowEventsPage").html("");
+    $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
+        $("#EventsPage").html("");
         AddEventsPage();
     });
     // Displays todays weather
@@ -355,7 +355,7 @@ function AddEventsPage(){
 //    $("<div class='noteContainer triContainer' ><ons-input type='text' placeholder='notes' min='0' max='30'></ons-input></div>").appendTo(self.$page);
     
     // Adds a large button to add the event
-    $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page).on('click', function(){
+    $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page).on('click tap touchstart', function(){
         
         
         var eventTitle = $('#eventTitle').val();
@@ -367,7 +367,6 @@ function AddEventsPage(){
         
         var time = hours.concat(":"+mins);
         
-        var loadDate;
         
         switch (counter) {
            
@@ -375,8 +374,6 @@ function AddEventsPage(){
                 date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
                 
-                loadDate = new Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
-                loadEvent(loadDate);
                 showEvents(nToday, nMonth);
                 break;
                 
@@ -384,8 +381,8 @@ function AddEventsPage(){
                 date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
                 
-                loadDate = new Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
-                loadEvent(loadDate);
+                
+                
                 showEvents(today, tMonth);
                 break;
                 
@@ -393,8 +390,6 @@ function AddEventsPage(){
                 date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
                 
-                loadDate = new Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
-                loadEvent(loadDate);
                 showEvents(yesterday, yMonth);
                 break;
                 
@@ -402,8 +397,7 @@ function AddEventsPage(){
                 date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
                 
-                loadDate = new Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
-                loadEvent(loadDate);
+                
                 showEvents(tommorrow, tomMonth);
                 break;
                 
@@ -411,22 +405,20 @@ function AddEventsPage(){
                 date = Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
                 
-                loadDate = new Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
-                loadEvent(loadDate);
                 showEvents(nToday, tMonth);
                 break;
                 
             default:
-
+                alert("no such date")
                 break;
                 
                 
         }
         
+        
+        //$("#AddEventsPage").html("");
         storeEvent(date, time, triColor, eventTitle);
-        $("#AddEventsPage").html("");
-        
-        
+        loadEvent(date);
        
         
     });
@@ -453,13 +445,13 @@ function AddDaysPage() {
     self.$page = $("<ons-page id='weeks' class='EventsPageBgGrad'></ons-page>");
     
     // The ^ button will run the AddMonthsPage function moving up a page if clicked
-    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click tap touchstart', function(){
         $("#AddDaysPage").html("");
         AddMonthsPage();
     });
     
     // Adds an X button to the toolbar and allows the user to exit the page
-    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click tap touchstart', function(){
         $("#AddDaysPage").html("");
     });
     
@@ -481,8 +473,8 @@ function AddDaysPage() {
     // A simple loop to generate the correct amount of day buttons down the page
     for(var i=1; i <= monthSize; i++){
         // The Text on the buttons is made from the iterater i
-        $("<ons-button id='"+i+"' modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page).on('click', function(){
-            
+        $("<ons-button id='"+i+"' modifier='quiet' class='dayStyle'>"+i+"</ons-button>").appendTo(self.$page).on('tap', function(){
+            //$("#AddDaysPage").html("");
             // Id of the button
             var id = $(this).attr('id');
             //alert("click 1");
@@ -636,7 +628,7 @@ function createUser(_username, _password) {
         url: url,
         cache: false
     }).done(function(data) {
-        alert("result:" + data);                       
+        //alert("result:" + data);                       
     }).fail(function(jqXHR, testStatus) {
         alert("request failed: ", testStatus );
     });
@@ -647,7 +639,7 @@ function createUser(_username, _password) {
         url: url,
         cache: false
     }).done(function(eventsArray) {
-        alert("result:" + eventsArray);                       
+        //alert("result:" + eventsArray);                       
     }).fail(function(jqXHR, testStatus) {
         alert("request failed: ", testStatus );
     });
@@ -668,7 +660,7 @@ function loadUser(_username, _password) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                           alert("result:" + data);
+                        // alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                         if (_username == loadedData.username && _password == loadedData.password ){
@@ -724,7 +716,7 @@ function loadEvent(_date) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                        alert("result:" + data);
+                        //alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                                 
