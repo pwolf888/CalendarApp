@@ -132,6 +132,7 @@ function showLoginPage() {
         //showFrontPage();
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+        $("#RegisterPage").html("");
         showRegisterPage();
     });
     
@@ -226,6 +227,7 @@ function showFrontPage() {
         counter = 3;
         date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
+        console.log(date);
         showEvents(yesterday, yMonth);
     });
     
@@ -445,10 +447,10 @@ function AddDaysPage() {
     var monthSize;
     if(monthChange == false){
         monthSize = daysInAMonth;
-        console.log("FALSE");
+        alert("FALSE");
     } else {
         monthSize = daysInChangedMonth;
-        console.log("TRUE" + monthSize);
+        alert("TRUE" + monthSize);
     }
     
     
@@ -459,7 +461,7 @@ function AddDaysPage() {
             
             // Id of the button
             var id = $(this).attr('id');
-            
+            alert("click 1");
             var loadDate;
             // If the month is this month send the altered day and todays month
             if(monthChange == false){
@@ -469,6 +471,7 @@ function AddDaysPage() {
                 showEvents(nToday, tMonth);
                 loadDate = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                alert("click 2");
                 
             // If the month is changed then a new day and new month will be returned    
             } else {
@@ -478,6 +481,7 @@ function AddDaysPage() {
                 showEvents(nToday, nMonth);
                 loadDate = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                alert("click 3");
             } 
         }); 
     }
@@ -580,9 +584,6 @@ function AddYearsPage() {
     self.$container.append(self.$page);
 }
 
-/***********************************
-* Function to create a new date object
-************************************/
 
 /***********************************
 * Function to create a new user
@@ -698,7 +699,7 @@ function loadEvent(_date) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                        //alert("result:" + data);
+                        alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                                 
@@ -721,6 +722,7 @@ function loadEvent(_date) {
                                     contents += "<div><span class='list-item__title'></span><span class='list-item__subtitle'></span></div></ons-list-item>"; 
                                     document.getElementById('content').innerHTML = contents;
                                     dateCounter++;
+                                    
                                 }
                         
                         

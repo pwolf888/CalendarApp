@@ -132,6 +132,7 @@ function showLoginPage() {
         //showFrontPage();
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+        $("#RegisterPage").html("");
         showRegisterPage();
     });
     
@@ -226,6 +227,7 @@ function showFrontPage() {
         counter = 3;
         date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
+        console.log(date);
         showEvents(yesterday, yMonth);
     });
     
@@ -275,6 +277,7 @@ function showEvents(_today, _month) {
     
     // The + button can run the AddEventsPage function if it is clicked
     $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#ShowEventsPage").html("");
         AddEventsPage();
     });
     // Displays todays weather
@@ -311,7 +314,7 @@ function AddEventsPage(){
     var self = this;
     
     // Makes 'this' the contianer for Add Events Page
-    self.$container = $("#addEventsPage");
+    self.$container = $("#AddEventsPage");
     
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='EventsPageBgGrad'></ons-page>");
@@ -320,7 +323,7 @@ function AddEventsPage(){
     
     // Adds an X button to the toolbar and allows the user to exit the page
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
-        $("#addEventsPage").html("");
+        $("#AddEventsPage").html("");
     });
     
     var $triContainer = $("<div class='triContainer'></div>").appendTo(self.$page);
@@ -364,41 +367,64 @@ function AddEventsPage(){
         
         var time = hours.concat(":"+mins);
         
-        
+        var loadDate;
         
         switch (counter) {
            
             case 1:
                 date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
-                console.log("1");
-                console.log(date);
+                $("#AddEventsPage").html("");
+                
+                loadDate = new Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
+                showEvents(nToday, nMonth);
                 break;
+                
             case 2:
-                console.log("2");
                 date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
-                console.log(date);
+                $("#AddEventsPage").html("");
+                
+                loadDate = new Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
+                showEvents(today, tMonth);
                 break;
+                
             case 3:
-                console.log("3");
                 date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
-                console.log(date);
+                $("#AddEventsPage").html("");
+                
+                loadDate = new Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
+                showEvents(yesterday, yMonth);
                 break;
+                
             case 4:
-                console.log("4");
                 date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
-                console.log(date);
+                $("#AddEventsPage").html("");
+                
+                loadDate = new Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
+                showEvents(tommorrow, tomMonth);
                 break;
+                
+            case 5: 
+                date = Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
+                $("#AddEventsPage").html("");
+                
+                loadDate = new Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
+                loadEvent(loadDate);
+                showEvents(nToday, tMonth);
+                break;
+                
             default:
-                console.log("default");
-                date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
-                console.log(date);
+
                 break;
                 
                 
         }
         
         storeEvent(date, time, triColor, eventTitle);
-        
+        $("#AddEventsPage").html("");
         
         
        
@@ -445,10 +471,10 @@ function AddDaysPage() {
     var monthSize;
     if(monthChange == false){
         monthSize = daysInAMonth;
-        console.log("FALSE");
+        //alert("FALSE");
     } else {
         monthSize = daysInChangedMonth;
-        console.log("TRUE" + monthSize);
+        //alert("TRUE" + monthSize);
     }
     
     
@@ -459,25 +485,28 @@ function AddDaysPage() {
             
             // Id of the button
             var id = $(this).attr('id');
-            
+            //alert("click 1");
             var loadDate;
             // If the month is this month send the altered day and todays month
             if(monthChange == false){
+                counter = 5;
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                counter = 2;
                 showEvents(nToday, tMonth);
-                loadDate = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
+                loadDate = new Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                
+                alert("click 2: " + loadDate);
                 
             // If the month is changed then a new day and new month will be returned    
             } else {
+                counter = 1;
                 nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                counter = 1;
                 showEvents(nToday, nMonth);
-                loadDate = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
+                loadDate = new Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                alert("click 3: " + loadDate);
             } 
         }); 
     }
@@ -580,9 +609,6 @@ function AddYearsPage() {
     self.$container.append(self.$page);
 }
 
-/***********************************
-* Function to create a new date object
-************************************/
 
 /***********************************
 * Function to create a new user
@@ -698,7 +724,7 @@ function loadEvent(_date) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                        //alert("result:" + data);
+                        alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                                 
@@ -721,6 +747,7 @@ function loadEvent(_date) {
                                     contents += "<div><span class='list-item__title'></span><span class='list-item__subtitle'></span></div></ons-list-item>"; 
                                     document.getElementById('content').innerHTML = contents;
                                     dateCounter++;
+                                    
                                 }
                         
                         
