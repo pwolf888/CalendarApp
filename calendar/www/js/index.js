@@ -99,7 +99,10 @@ var date;
 var userName;
 // This sets up my document with the front page.
 $(document).ready(function(){
-    showLoginPage();    
+    showLoginPage(); 
+    
+   
+    
 });
 
 /***********************************
@@ -109,22 +112,47 @@ function showLoginPage() {
     // Stores 'this' inside self
     var self = this;
     
+    
     // Makes 'this' the contianer for login page
     self.$container = $("#LoginPage");
     
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
+    // Try load local storage
+    try {
+        // Load previous username if available
+        var savedName = localStorage.getItem("savedUsername");
+    } catch (e) {
+        savedName = "Username";
+    }
+    
     // Add 2 input boxes username and password
-    $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome back, "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+   
+    
     $("<div class='inputLogin'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
     $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
+        
+        
         userName = $('#userName').val();
         $('#userName').val(userName);
         var passWord = $('#passWord').val();
         $('#passWord').val(passWord);
+        
+        if (typeof(Storage) !== "undefined") {
+            // Local Storage
+            localStorage.setItem("savedUsername", userName);
+            alert("saved username");
+            
+            
+        } else {
+            // Error message
+            alert("Browser Not supported");
+        }
+        
         
         loadUser(userName, passWord);
         
@@ -153,10 +181,6 @@ function showRegisterPage() {
     
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
-    
-    
-    // placeholder='Password'
-    // placeholder='Username'
     
     // Add 2 input boxes username and password
     $("<div class='inputLogin'><ons-input id='usernameText' type='text'  placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
@@ -202,6 +226,13 @@ function showFrontPage() {
     $("<div class='clock' id='clock'>"+time+"</div>").appendTo(self.$page);
     $("<div class='sun' id='weather'></div>").appendTo(self.$page);
     $("<div class='monthOfYear' id='month'>"+tMonth+"</div>").appendTo(self.$page);
+    
+    
+    // Adds an X button to the toolbar and allows the user to exit the page
+    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#FrontPage").html("");
+        showLoginPage();
+    });
     
     // The ^ button can run the AddDaysPage function if it is clicked
     $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
@@ -478,15 +509,16 @@ function AddDaysPage() {
             // Id of the button
             var id = $(this).attr('id');
             //alert("click 1");
-            var loadDate;
+            var loadDate = Sugar.Date("'"+tMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
             // If the month is this month send the altered day and todays month
             if(monthChange == false){
                 counter = 5;
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                showEvents(nToday, tMonth);
+                
                 loadDate = new Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                showEvents(nToday, tMonth);
                 
                 alert("click 2: " + loadDate);
                 
@@ -495,9 +527,10 @@ function AddDaysPage() {
                 counter = 1;
                 nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                showEvents(nToday, nMonth);
+                
                 loadDate = new Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                showEvents(nToday, nMonth);
                 alert("click 3: " + loadDate);
             } 
         }); 

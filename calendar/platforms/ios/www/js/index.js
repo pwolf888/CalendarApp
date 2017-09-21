@@ -223,7 +223,7 @@ function showFrontPage() {
     var $row = $("<ons-row id='threeDays'></ons-row>").appendTo($rowContainer);
     
     // Then three columns are appended to the row variable
-    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('click tap touchstart', function(){
+    $("<ons-col align='bottom'><ons-button id='yesterday' modifier='quiet' class='triButtonSml'>"+yesterday+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 3;
         date = Sugar.Date("'"+yMonth+""+yesterday+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
@@ -232,13 +232,13 @@ function showFrontPage() {
     });
     
     // The Today button can run the showEvents function if it is clicked
-    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('click tap touchstart', function(){
+    $("<ons-col><ons-button id='today' modifier='quiet' class='buttonGround triButtonLge'>"+today+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 2;
         date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
         showEvents(today, tMonth);
     });
-    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('click tap touchstart', function(){
+    $("<ons-col align='bottom'><ons-button id='tomorrow' modifier='quiet' class='buttonGround triButtonSml'>"+tomorrow+"</ons-button></ons-col>").appendTo($row).on('tap', function(){
         counter = 4;
         date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
         loadEvent(date);
@@ -271,12 +271,12 @@ function showEvents(_today, _month) {
     self.$page = $("<ons-page id='events' class='EventsPageBgGrad'></ons-page>");
     
     // The ^ button will remove all content from screen and show the Front Page again
-    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click tap touchstart', function(){
+    $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
         $("#EventsPage").html("");
     });
     
     // The + button can run the AddEventsPage function if it is clicked
-    $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('click tap touchstart', function(){
+    $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
         $("#EventsPage").html("");
         AddEventsPage();
     });
@@ -478,15 +478,16 @@ function AddDaysPage() {
             // Id of the button
             var id = $(this).attr('id');
             //alert("click 1");
-            var loadDate;
+            var loadDate = Sugar.Date("'"+tMonth+""+id+", "+year+"'").toLocaleDateString().valueOf();
             // If the month is this month send the altered day and todays month
             if(monthChange == false){
                 counter = 5;
                 nToday = new Sugar.Date("'"+tMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                showEvents(nToday, tMonth);
+                
                 loadDate = new Sugar.Date("'"+tMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                showEvents(nToday, tMonth);
                 
                 alert("click 2: " + loadDate);
                 
@@ -495,9 +496,10 @@ function AddDaysPage() {
                 counter = 1;
                 nToday = new Sugar.Date("'"+nMonth+""+id+", "+year+"'").format('%d');
                 $("#AddDaysPage").html("");
-                showEvents(nToday, nMonth);
+                
                 loadDate = new Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 loadEvent(loadDate);
+                showEvents(nToday, nMonth);
                 alert("click 3: " + loadDate);
             } 
         }); 
