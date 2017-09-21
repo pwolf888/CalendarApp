@@ -112,7 +112,6 @@ function showLoginPage() {
     // Stores 'this' inside self
     var self = this;
     
-    
     // Makes 'this' the contianer for login page
     self.$container = $("#LoginPage");
     
@@ -124,40 +123,37 @@ function showLoginPage() {
         // Load previous username if available
         var savedName = localStorage.getItem("savedUsername");
     } catch (e) {
+        // Load default
         savedName = "Username";
     }
     
     // Add 2 input boxes username and password
     $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome back, "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
-   
-    
     $("<div class='inputLogin'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
     $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
         
-        
+        // Save the input values
         userName = $('#userName').val();
         $('#userName').val(userName);
         var passWord = $('#passWord').val();
         $('#passWord').val(passWord);
         
+        // Hash the password before requesting from datastore
+        
+        // Save username to local storage
         if (typeof(Storage) !== "undefined") {
             // Local Storage
             localStorage.setItem("savedUsername", userName);
-            alert("saved username");
-            
-            
         } else {
             // Error message
             alert("Browser Not supported");
         }
         
-        
+        // Load user data
         loadUser(userName, passWord);
         
-        
-        //showFrontPage();
     });
     $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         $("#RegisterPage").html("");
@@ -192,11 +188,23 @@ function showRegisterPage() {
         $('#usernameText').val(userName);
         var passWord = $('#passwordText').val();
         $('#passwordText').val(passWord);
-        console.log("username =" + userName);
-        console.log("password =" + passWord);
         
-        createUser(userName, passWord);
+        // Hash password before sending to datastore
         
+        // Check if the length of the username and password are greater than 8
+        if(userName.length >= 8 & passWord.length >= 8) {
+            
+            // Create new user
+            createUser(userName, passWord);
+            
+            // Alert user that details were accepted
+            alert("Username and password saved, welcome" +userName+ "'")
+        } else {
+            // Prompt user to try again
+            alert("Please use 8 or more characters for your username and password.")
+        }
+        
+        // Return to login page
         $("#RegisterPage").html("");
         showLoginPage();
     });
@@ -388,7 +396,7 @@ function AddEventsPage(){
     // Adds a large button to add the event
     $("<div class='triContainer' ><ons-button modifier='quiet' class='triButtonLge'>+</ons-button></div>").appendTo(self.$page).on('click tap touchstart', function(){
         
-        
+        // Store event data
         var eventTitle = $('#eventTitle').val();
         $('#eventTitle').val(eventTitle);
         var hours = $('#hours').val();
@@ -396,6 +404,7 @@ function AddEventsPage(){
         var mins = $('#minutes').val();
         $('#minutes').val(mins);
         
+        // Concat hours to mins eg. 12:30
         var time = hours.concat(":"+mins);
         
         
@@ -404,16 +413,12 @@ function AddEventsPage(){
             case 1:
                 date = Sugar.Date("'"+nMonth+""+nToday+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
-                
                 showEvents(nToday, nMonth);
                 break;
                 
             case 2:
                 date = Sugar.Date("'"+tMonth+""+today+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
-                
-                
-                
                 showEvents(today, tMonth);
                 break;
                 
@@ -427,9 +432,7 @@ function AddEventsPage(){
             case 4:
                 date = Sugar.Date("'"+tomMonth+""+tomorrow+", "+year+"'").toLocaleDateString().valueOf();
                 $("#AddEventsPage").html("");
-                
-                
-                showEvents(tommorrow, tomMonth);
+                showEvents(tomorrow, tomMonth);
                 break;
                 
             case 5: 
@@ -446,12 +449,17 @@ function AddEventsPage(){
                 
         }
         
-        
-        //$("#AddEventsPage").html("");
-        storeEvent(date, time, triColor, eventTitle);
-        loadEvent(date);
-       
-        
+        // Validation for the input data
+        if(eventTitle.length <= 20 && eventTitle.length > 0) {
+            if(hours >= 0 && hours <= 23 && mins >= 0 && mins <= 59){
+                storeEvent(date, time, triColor, eventTitle);
+                loadEvent(date);
+            } else {
+                alert("Hours must be between 0 and 23, mins must be between 0 and 59");
+            }
+        } else {
+            alert("Event title must be between 0 and 10 characters");
+        }
     });
                                                                                                                                    
     
