@@ -127,12 +127,15 @@ function showLoginPage() {
         savedName = "Username";
     }
     
+    // Adding the logo to the top of the page
+    $("<div class='logoLogin'></div>").appendTo(self.$page);
+    
     // Add 2 input boxes username and password
     $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome back, "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
-    $("<div class='inputLogin'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputPassword'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
-    $("<div><ons-button class='loginButton'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
+    $("<div class='inputLogin'><ons-button class='triLogin' modifier='quiet'>Login</ons-button></div>").appendTo(self.$page).on('click', function(){
         
         // Save the input values
         userName = $('#userName').val();
@@ -155,7 +158,7 @@ function showLoginPage() {
         loadUser(userName, passWord);
         
     });
-    $("<div><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+    $("<div class='inputLogin'><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         $("#RegisterPage").html("");
         showRegisterPage();
     });
@@ -178,12 +181,15 @@ function showRegisterPage() {
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
+    // Adding the logo to the top of the page
+    $("<div class='logoLogin'></div>").appendTo(self.$page);
+    
     // Add 2 input boxes username and password
     $("<div class='inputLogin'><ons-input id='usernameText' type='text'  placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
-    $("<div class='inputLogin'><ons-input id='passwordText'type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    $("<div class='inputPassword'><ons-input id='passwordText'type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
-    $("<div><ons-button class='registerButton'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
+    $("<div class='inputLogin'><ons-button modifier='quiet' class='triLogin'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
         var userName = $('#usernameText').val();
         $('#usernameText').val(userName);
         var passWord = $('#passwordText').val();
