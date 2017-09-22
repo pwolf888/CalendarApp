@@ -243,7 +243,7 @@ function showFrontPage() {
     
     
     // Adds an X button to the toolbar and allows the user to exit the page
-    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='logOutxBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#FrontPage").html("");
         showLoginPage();
     });
@@ -251,11 +251,13 @@ function showFrontPage() {
     // The ^ button can run the AddDaysPage function if it is clicked
     $("<ons-button modifier='quiet' class='upButton'></ons-button>").appendTo(self.$page).on('click', function(){
         AddDaysPage();
+        $("#FrontPage").html("");
     });
     
     // The + can run the AddEvents function if it is clicked
     $("<ons-button modifier='quiet' class='addButton'></ons-button>").appendTo(self.$page).on('click', function(){
         AddEventsPage();
+        $("#FrontPage").html("");
     });
     
     // Adds the day of the week to the page
@@ -318,12 +320,14 @@ function showEvents(_today, _month) {
     // The ^ button will remove all content from screen and show the Front Page again
     $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
         $("#EventsPage").html("");
+        showFrontPage();
     });
     
     // The + button can run the AddEventsPage function if it is clicked
     $("<ons-button modifier='quiet' class='addButtonEvents'></ons-button>").appendTo(self.$page).on('tap', function(){
         $("#EventsPage").html("");
         AddEventsPage();
+        
     });
     // Displays todays weather
     $("<div class='weather'>SUNNY</div>").appendTo(self.$page);
@@ -367,8 +371,9 @@ function AddEventsPage(){
     $("<div class='tBar'>New Event</div>").appendTo(self.$page);
     
     // Adds an X button to the toolbar and allows the user to exit the page
-    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='addEventsxBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddEventsPage").html("");
+        showFrontPage();
     });
     
     var $triContainer = $("<div class='triContainer'></div>").appendTo(self.$page);
@@ -498,6 +503,7 @@ function AddDaysPage() {
     // Adds an X button to the toolbar and allows the user to exit the page
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click tap touchstart', function(){
         $("#AddDaysPage").html("");
+        showFrontPage();
     });
     
     // Adds the Days page title to the toolbar
@@ -570,12 +576,14 @@ function AddMonthsPage() {
     
     // The ^ button will run the AddYearsPage function moving up a page if clicked
     $("<ons-button modifier='quiet' class='upButtonEvents'></ons-button>").appendTo(self.$page).on('click', function(){
+        $("#AddMonthsPage").html("");
         AddYearsPage();
     });
     
     // Adds an X button to the toolbar and allows the user to exit the page and return to the previous
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddMonthsPage").html("");
+        showFrontPage();
     });
     
     // Adds the Months page title to the toolbar
@@ -629,6 +637,7 @@ function AddYearsPage() {
     // Adds an X button to the toolbar and allows the user to exit the page and return to the previous
     $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#AddYearsPage").html("");
+        showFrontPage();
     });
     
     // Adds the Years page title to the toolbar
