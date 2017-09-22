@@ -53,8 +53,9 @@
     width: 100px;
     height: 50px;
     background-repeat: no-repeat;
-    left:5px;
+    right:5px;
     top: 5px;
+    float:right;
 }
 
 .FrontPageBgGrad .page__background {
@@ -285,6 +286,15 @@ ons-toolbar {
     height: 27px;
     top: 10px;
     right: 10px;
+}
+
+.logOutxBtn {
+    background-image: url("../img/xBtn-07.png");
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    top: 10px;
+    left: 10px;
 }
 
 .addEventsxBtn {

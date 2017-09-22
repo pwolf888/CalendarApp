@@ -243,7 +243,7 @@ function showFrontPage() {
     
     
     // Adds an X button to the toolbar and allows the user to exit the page
-    $("<ons-button modifier='quiet' class='xBtn'></ons-button>").appendTo(self.$page).on('click', function(){
+    $("<ons-button modifier='quiet' class='logOutxBtn'></ons-button>").appendTo(self.$page).on('click', function(){
         $("#FrontPage").html("");
         showLoginPage();
     });

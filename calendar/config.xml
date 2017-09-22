@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.jonathant.calendar" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>calendar</name>
+    <name>MT.A.RANGE</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A calendar app
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jonathan.turnbull8@gmail.com" href="http://jtpartywolf.com">
+        Jonathan Turnbull
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -17,6 +17,12 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon density="xhdpi" src="res/icon/android/appicon-xhdpi.png" />
+<!--
+         <icon density="ldpi" src="res/icon/android/appicon-ldpi.png" />
+        <icon density="mdpi" src="res/icon/android/appicon-mdpi.png" />
+        <icon density="hdpi" src="res/icon/android/appicon-hdpi.png" />
+-->
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -4,12 +4,12 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>calendar</name>
+    <name>MT.A.RANGE</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A calendar app
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jonathan.turnbull8@gmail.com" href="http://jtpartywolf.com">
+        Jonathan Turnbull
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -20,5 +20,6 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <icon density="xhdpi" src="res/icon/android/appicon-xhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
 </widget>
