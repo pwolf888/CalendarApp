@@ -181,6 +181,9 @@ function showRegisterPage() {
     // All of my elements are then appended to the ons-page element
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
+    // Adding the logo to the top of the page
+    $("<div class='logoLogin'></div>").appendTo(self.$page);
+    
     // Add 2 input boxes username and password
     $("<div class='inputLogin'><ons-input id='usernameText' type='text'  placeholder='Username' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     $("<div class='inputPassword'><ons-input id='passwordText'type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
