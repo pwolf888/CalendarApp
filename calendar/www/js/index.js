@@ -111,7 +111,8 @@ $(document).ready(function(){
 function showLoginPage() {
     // Stores 'this' inside self
     var self = this;
-    
+    // Load default
+    var savedDefault = localStorage.setItem('savedDefault', '');
     // Makes 'this' the contianer for login page
     self.$container = $("#LoginPage");
     
@@ -119,19 +120,27 @@ function showLoginPage() {
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
     // Try load local storage
+    
     try {
         // Load previous username if available
+        var saved = true;
         var savedName = localStorage.getItem("savedUsername");
+        
     } catch (e) {
-        // Load default
-        savedName = "Username";
+        saved = false;
+        savedDefault = localStorage.getItem('savedDefault');
     }
     
     // Adding the logo to the top of the page
     $("<div class='logoLogin'></div>").appendTo(self.$page);
     
     // Add 2 input boxes username and password
-    $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome back, "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    if(saved == true) {
+       $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page); 
+    } else {
+        $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome "+savedDefault+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    }
+    
     $("<div class='inputPassword'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
@@ -729,7 +738,7 @@ function loadUser(_username, _password) {
                         }
                         
                         }).fail(function(jqXHR, testStatus) {
-                            alert("request failed: ", testStatus );
+                            alert("No such user, try again");
             
         });
     
