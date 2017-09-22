@@ -28,7 +28,7 @@ var app = {
 
 app.initialize();
 
-
+//var CryptoJS = require("crypto-js");
 /************************************
 * Jonathan Turnbull
 * jmturnbu
@@ -153,6 +153,10 @@ function showLoginPage() {
         $('#passWord').val(passWord);
         
         // Hash the password before requesting from datastore
+        var hasher = CryptoJS.SHA256(passWord);
+        var stringHash = JSON.stringify(hasher);
+        
+        console.log(hasher);
         
         // Save username to local storage
         if (typeof(Storage) !== "undefined") {
@@ -164,7 +168,7 @@ function showLoginPage() {
         }
         
         // Load user data
-        loadUser(userName, passWord);
+        loadUser(userName, stringHash);
         
     });
     $("<div class='inputLogin'><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
@@ -205,12 +209,13 @@ function showRegisterPage() {
         $('#passwordText').val(passWord);
         
         // Hash password before sending to datastore
-        
+        var ciphertext = CryptoJS.SHA256(passWord);
+        var stringCipher = JSON.stringify(ciphertext);
         // Check if the length of the username and password are greater than 8
         if(userName.length >= 8 & passWord.length >= 8) {
             
             // Create new user
-            createUser(userName, passWord);
+            createUser(userName, stringCipher);
             
             // Alert user that details were accepted
             alert("Username and password saved, welcome" +userName+ "'")
@@ -725,7 +730,7 @@ function loadUser(_username, _password) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                        // alert("result:" + data);
+                         alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                         if (_username == loadedData.username && _password == loadedData.password ){

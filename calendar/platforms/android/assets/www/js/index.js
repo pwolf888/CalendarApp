@@ -28,7 +28,7 @@ var app = {
 
 app.initialize();
 
-
+//var CryptoJS = require("crypto-js");
 /************************************
 * Jonathan Turnbull
 * jmturnbu
@@ -111,7 +111,8 @@ $(document).ready(function(){
 function showLoginPage() {
     // Stores 'this' inside self
     var self = this;
-    
+    // Load default
+    var savedDefault = localStorage.setItem('savedDefault', '');
     // Makes 'this' the contianer for login page
     self.$container = $("#LoginPage");
     
@@ -119,19 +120,27 @@ function showLoginPage() {
     self.$page = $("<ons-page class='FrontPageBgGrad frontPageBg' id='frontPage'></ons-page>");
     
     // Try load local storage
+    
     try {
         // Load previous username if available
+        var saved = true;
         var savedName = localStorage.getItem("savedUsername");
+        
     } catch (e) {
-        // Load default
-        savedName = "Username";
+        saved = false;
+        savedDefault = localStorage.getItem('savedDefault');
     }
     
     // Adding the logo to the top of the page
     $("<div class='logoLogin'></div>").appendTo(self.$page);
     
     // Add 2 input boxes username and password
-    $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome back, "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    if(saved == true) {
+       $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome "+savedName+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page); 
+    } else {
+        $("<div class='inputLogin'><ons-input id='userName' type='text' placeholder='Welcome "+savedDefault+"' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
+    }
+    
     $("<div class='inputPassword'><ons-input id='passWord' type='text' placeholder='Password' min='0' max='15' class=''></ons-input></div>").appendTo(self.$page);
     
     // add a login button and a register button
@@ -144,6 +153,10 @@ function showLoginPage() {
         $('#passWord').val(passWord);
         
         // Hash the password before requesting from datastore
+        var hasher = CryptoJS.SHA256(passWord);
+        var stringHash = JSON.stringify(hasher);
+        
+        console.log(hasher);
         
         // Save username to local storage
         if (typeof(Storage) !== "undefined") {
@@ -155,7 +168,7 @@ function showLoginPage() {
         }
         
         // Load user data
-        loadUser(userName, passWord);
+        loadUser(userName, stringHash);
         
     });
     $("<div class='inputLogin'><ons-button class='registerButton' modifier='quiet'>Register</ons-button></div>").appendTo(self.$page).on('click', function(){
@@ -196,12 +209,13 @@ function showRegisterPage() {
         $('#passwordText').val(passWord);
         
         // Hash password before sending to datastore
-        
+        var ciphertext = CryptoJS.SHA256(passWord);
+        var stringCipher = JSON.stringify(ciphertext);
         // Check if the length of the username and password are greater than 8
         if(userName.length >= 8 & passWord.length >= 8) {
             
             // Create new user
-            createUser(userName, passWord);
+            createUser(userName, stringCipher);
             
             // Alert user that details were accepted
             alert("Username and password saved, welcome" +userName+ "'")
@@ -716,7 +730,7 @@ function loadUser(_username, _password) {
 
         $.ajax({url: url, cache: false}).
                         done(function(data) {
-                        // alert("result:" + data);
+                         alert("result:" + data);
                         // Load events 
                         var loadedData = JSON.parse(data);
                         if (_username == loadedData.username && _password == loadedData.password ){
@@ -729,7 +743,7 @@ function loadUser(_username, _password) {
                         }
                         
                         }).fail(function(jqXHR, testStatus) {
-                            alert("request failed: ", testStatus );
+                            alert("No such user, try again");
             
         });
     
