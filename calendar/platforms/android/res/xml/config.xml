@@ -21,5 +21,6 @@
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
     <icon density="xhdpi" src="res/icon/android/appicon-xhdpi.png" />
+    <splash density="port-hdpi" src="res/screen/android/splash-portrait-hdpi.png" />
     <preference name="loglevel" value="DEBUG" />
 </widget>

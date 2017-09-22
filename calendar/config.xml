@@ -18,11 +18,7 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="xhdpi" src="res/icon/android/appicon-xhdpi.png" />
-<!--
-         <icon density="ldpi" src="res/icon/android/appicon-ldpi.png" />
-        <icon density="mdpi" src="res/icon/android/appicon-mdpi.png" />
-        <icon density="hdpi" src="res/icon/android/appicon-hdpi.png" />
--->
+        <splash density="port-hdpi" src="res/screen/android/splash-portrait-hdpi.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
